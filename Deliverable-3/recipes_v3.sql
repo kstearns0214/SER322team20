@@ -29,20 +29,20 @@ primary key(instructionID)
 );
 
 create table recipes.review(
-reviewer_name       VARCHAR(25)   NOT NULL,
+reviewer_name       VARCHAR(25)    NOT NULL,
 rating              INT(5),
-comment             VARCHAR(250)  NOT NULL
+comment             VARCHAR(250)   NOT NULL
 );
 
 create table recipes.suggestion(
-suggestionID        INT           NOT NULL    AUTO_INCREMENT,
-upVote				INT(5)		  NOT NULL,
-Category			VARCHAR(25)   NOT NULL,
-Text				VARCHAR(250)  NOT NULL,
+suggestionID        INT            NOT NULL    AUTO_INCREMENT,
+upVote				      INT(5)		     NOT NULL,
+Category			      VARCHAR(25)    NOT NULL,
+Text				        VARCHAR(250)   NOT NULL,
 );
 
 create table recipes.user(
-userID				INT			  NOT NULL    AUTO_INCREMENT,
-user_name           VARCHAR(25)   NOT NULL,
-password            VARCHAR(25)   NOT NULL,
+userID				      INT			       NOT NULL    AUTO_INCREMENT,
+user_name           VARCHAR(25)    NOT NULL,
+password            VARCHAR(25)    NOT NULL,
 );
