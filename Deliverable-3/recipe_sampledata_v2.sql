@@ -70,6 +70,11 @@ primary key(userID)
 
 
 
+
+
+
+
+
 INSERT INTO `cookbook` VALUES
 ('1'),
 ('2'),
@@ -83,9 +88,9 @@ INSERT INTO `category` VALUES
 ('4');
 
 INSERT INTO `recipe`VALUES
-(1,'Omellete','Breakfast','Delicious simple omellete made in ten minutes', 1, '00:10:00', '00:05:00','00:05:00',400,1),
-(2,'Roast Brocolli','Dinner','Delicious and easy side dish for dinner', 2, '00:25:00', '00:05:00','00:20:00',120, 3),
-(3,'Avacado on Toast','Breakfast','Simple and hardy breakfast meal that will keep you full', 1, '00:10:00', '00:03:00','00:07:00',200,1),
+(1,'Omelette','Breakfast','Delicious simple omelette made in ten minutes', 1, '00:10:00', '00:05:00','00:05:00',400,1),
+(2,'Roast Broccoli','Dinner','Delicious and easy side dish for dinner', 2, '00:25:00', '00:05:00','00:20:00',120, 3),
+(3,'Avocado on Toast','Breakfast','Simple and hardy breakfast meal that will keep you full', 1, '00:10:00', '00:03:00','00:07:00',200,1),
 (4,'Ham and Cheese Sandwich','Lunch','Simple lunch item that even your kids will love', 1, '00:05:00', '00:01:00','00:04:00',400,2),
 (5,'Pan Seared Salmon','Dinner','Tender Salmon dish that will leave your mouth wanting more', 1, '00:15:00', '00:05:00','00:10:00',400,3);
 
@@ -95,8 +100,8 @@ INSERT INTO `ingredients` VALUES
 ('Bread', 'Grain' , 'Grams', '80'),
 ('Cheese', 'Dairy' , 'Grams', '100'),
 ('Ham', 'Protein' , 'Grams', '20'),
-('Brocolli', 'Vegetable' , 'Grams', '60'),
-('Avacado', 'Vegetable' , 'Grams', '100'),
+('Broccoli', 'Vegetable' , 'Grams', '60'),
+('Avocado', 'Vegetable' , 'Grams', '100'),
 ('Salmon', 'Protein' , 'Ounces', '170'),
 ('Butter', 'Oil' , 'tbsp', '120'),
 ('Chives', 'Vegetable' , 'tbsp', '0');
@@ -104,10 +109,10 @@ INSERT INTO `ingredients` VALUES
 INSERT INTO `has_ingredients` VALUES
 ('1', 'Egg', '150'),
 ('1', 'Chives', '2'),
-('2', 'Brocolli', '300'),
+('2', 'Broccoli', '300'),
 ('2', 'Olive Oil', '.25'),
 ('3', 'Bread', '80'),
-('3', 'Avacado', '100'),
+('3', 'Avocado', '100'),
 ('4', 'Cheese', '200'),
 ('4', 'Ham', '180'),
 ('5', 'Salmon', '170');
@@ -125,13 +130,13 @@ INSERT INTO `instructions` VALUES
 ('1','3', '3', 'Add in the butter onto the pan once heated up'),
 ('1','4', '4', 'Pour the egg onto the pan and fold it inwards slowly'),
 ('1','5', '5', 'Once the egg is cooked fold the egg in half and add the chopped chives'),
-('2','6', '1', 'Preheat the oven to 350 degree farenheit and get 300 grams of brocolli'),
-('2','7', '2', 'Pour the brocolli into an oven safe pan and drizzle 1 tbsp of olive oil on top'),
-('2','8', '3', 'Add salt and pepper and mix the brocolli'),
-('2','9', '4', 'Place the brocolli into the oven for 20 minutes after completed take it out and enjoy'),
+('2','6', '1', 'Preheat the oven to 350 degree fahrenheit and get 300 grams of broccoli'),
+('2','7', '2', 'Pour the broccoli into an oven safe pan and drizzle 1 tbsp of olive oil on top'),
+('2','8', '3', 'Add salt and pepper and mix the broccoli'),
+('2','9', '4', 'Place the broccoli into the oven for 20 minutes after completed take it out and enjoy'),
 ('3','10', '1', 'Take a slice of bread and put it into the toaster'),
-('3','11', '2', 'While toasting get half an avacado and slice tit length wise'),
-('3','12', '3', 'Once the toast is complete take the avacado and place it on top of the toast, using a fork to spread it'),
+('3','11', '2', 'While toasting get half an avocado and slice tit lengthwise'),
+('3','12', '3', 'Once the toast is complete take the avocado and place it on top of the toast, using a fork to spread it'),
 ('3','13', '4', 'Drizzle 1/4 tbsp of olive oil on top, and salt pepper to taste'),
 ('4','14', '1', 'Obtain two slices of bread and place them into the toaster'),
 ('4','15', '2', 'While it is toasting get 6 slices of ham and 2 slices of cheese'),
