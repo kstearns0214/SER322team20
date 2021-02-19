@@ -16,7 +16,8 @@ prepTime             TIME,
 cookTime             TIME,
 totalCalories        INT, 
 hasSuggestion        BOOLEAN,
-primary key(recipeID)
+primary key(recipeID),
+foreign key(category) references category(classificationID)
 );
 
 create table cookbook.ingredients(
@@ -46,8 +47,18 @@ primary key(recipeID, instructionID),
 foreign key(recipeID) references recipe(recipeID)
 );
 
+create table cookbook.has_ingredients(
+recipeID             INT           NOT NULL,
+name                 VARCHAR(25)   NOT NULL,
+amount               INT           NOT NULL,
+primary key(recipeID, name),
+foreign key(recipeID) references recipe(recipeID),
+foreign key(name) references ingredients(name)
+)
+
 create table cookbook.category(
-classificationID     INT           NOT NULL
+classificationID     INT           NOT NULL,
+primary key(classificationID)
 );
 
 create table cookbook.user(
