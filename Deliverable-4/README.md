@@ -18,22 +18,30 @@ team20_cookbook_create.sql
 ```
 OR
 ```
+source <path to file>/ser322_team20_cookbook/sql/team20_create_cookbook.sql
+```
+For example:
+```
 source C://Users/Wraith/Desktop/ser322_team20_cookbook/sql/team20_create_cookbook.sql
 ```
 
-Make sure the MySQL shell has access to the Cookbook database by using:
+Make sure the MySQL shell has access to the cookbook database by using:
 ```
 show databases;
 ```
 
-Set the default schema to Cookbook using:
+Set the default schema to cookbook using:
 ```
 use cookbook;
 ```
 
 [Terminal] Open a terminal and locate the files using:
 ```
-C:\Users\Wraith\Desktop\ser322_team20_cookbook
+<path to file>/ser322_team20_cookbook
+```
+OR
+```
+C:/Users/Wraith/Desktop/ser322_team20_cookbook
 ```
 
 [Terminal] Connect to the application using:
@@ -46,10 +54,10 @@ java -cp lib/mysql-connector-java-8.0.23.jar;bin cookbook.Application "jdbc:mysq
 ```
 
 The notation here is:
-- `lib/mysql-connector-java-8.0.23.jar;bin` is the path to the SQL connector.
+- `lib/mysql-connector-java-8.0.23.jar;bin` is the path to the SQL connector. Change the `;` to `:` if using a Mac OS.
 - `cookbook.Application` is the pathfile to the java file with all of the application information.
 - `jdbc:mysql://localhost/cookbook?` is the URL.
 - `autoReconnect=true` encourages the JDBC driver to connect to failing connections. 
 - `useSSL=false` is only needed for MySQL 5.5.45+, 5.6.26+, or 5.7.6+. If you are using one of these MySQL versions, set `useSSL` to `true`.
 - `useLegacyDatetimeCode=false"` This refers to how the Connector retrieves a timestamp. According to the [MySQL manual](https://dev.mysql.com/doc/connector-j/5.1/en/connector-j-usagenotes-known-issues-limitations.html), this refers to MySQL Connector/J 5.1 and may not be necessary for a different version.
-- 'serverTimezone=America/New_York' This sets the timezone to New York's timezone.
+- `serverTimezone=America/New_York` This sets the timezone to New York's timezone.
