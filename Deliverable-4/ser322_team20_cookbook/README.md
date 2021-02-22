@@ -1,12 +1,12 @@
 # ser322_team20_cookbook
 
-## File Organization
+## File Organization:
 
 - `lib` contains the MySQL connector JAR file.
 - `resources` contains the diagrams from Deliverable 2 and 3.
 - `sql` has the `team20_cookbook_create.sql` script which creates and populates the database.
 
-## Instructions to use MySQL to load the scripts and access the java file.
+## Instructions to use MySQL to load the scripts and access the java file:
 
 [MySQL Shell] If in `MySQL JS` switch to MySQL SQL using:
 ```
