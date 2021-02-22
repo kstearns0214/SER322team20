@@ -1,5 +1,13 @@
 # ser322_team20_cookbook
 
+## File Organization
+
+- `lib` contains the MySQL connector JAR file.
+- `resources` contains the diagrams from Deliverable 2 and 3.
+- `sql` has the `team20_cookbook_create.sql` script which creates and populates the database.
+
+## Instructions to use MySQL to load the scripts and access the java file.
+
 [MySQL Shell] If in `MySQL JS` switch to MySQL SQL using:
 ```
 \sql
@@ -47,16 +55,16 @@ C:/Users/Wraith/Desktop/ser322_team20_cookbook
 
 [Terminal] Connect to the application using:
 ```
-java -cp lib/mysql-connector-java-8.0.23.jar;bin cookbook.Application "jdbc:mysql://localhost/cookbook?autoReconnect=true&useSSL=false" root mysql com.mysql.cj.jdbc.Driver
+java -cp lib/mysql-connector-java-8.0.23.jar;bin cookbook.RecipePages "jdbc:mysql://localhost/cookbook?autoReconnect=true&useSSL=false" root mysql com.mysql.cj.jdbc.Driver
 ```
 [Terminal] OR
 ```
-java -cp lib/mysql-connector-java-8.0.23.jar;bin cookbook.Application "jdbc:mysql://localhost/cookbook?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&&serverTimezone=America/New_York" root mysql com.mysql.cj.jdbc.Driver
+java -cp lib/mysql-connector-java-8.0.23.jar;bin cookbook.RecipePages "jdbc:mysql://localhost/cookbook?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&&serverTimezone=America/New_York" root mysql com.mysql.cj.jdbc.Driver
 ```
 
 The notation here is:
 - `lib/mysql-connector-java-8.0.23.jar;bin` is the path to the SQL connector. Change the `;` to `:` if using a Mac OS.
-- `cookbook.Application` is the pathfile to the java file with all of the application information.
+- `cookbook.RecipePages` is the pathfile to the java file with all of the application information.
 - `jdbc:mysql://localhost/cookbook?` is the URL.
 - `autoReconnect=true` encourages the JDBC driver to connect to failing connections. 
 - `useSSL=false` is only needed for MySQL 5.5.45+, 5.6.26+, or 5.7.6+. If you are using one of these MySQL versions, set `useSSL` to `true`.
