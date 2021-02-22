@@ -17,21 +17,21 @@ We need to create the database and load it full of information.
 ```
 team20_cookbook_create.sql
 ```
-OR
+[MySQL Shell] OR
 ```
 source <path to file>/ser322_team20_cookbook/sql/team20_create_cookbook.sql
 ```
-For example:
+[MySQL Shell] For example:
 ```
 source C://Users/Wraith/Desktop/ser322_team20_cookbook/sql/team20_create_cookbook.sql
 ```
 
-Make sure the MySQL shell has access to the cookbook database by using:
+[MySQL Shell] Make sure the MySQL shell has access to the cookbook database by using:
 ```
 show databases;
 ```
 
-Set the default schema to cookbook using:
+[MySQL Shell] Set the default schema to cookbook using:
 ```
 use cookbook;
 ```
@@ -40,7 +40,7 @@ use cookbook;
 ```
 <path to file>/ser322_team20_cookbook
 ```
-OR
+[Terminal] OR
 ```
 C:/Users/Wraith/Desktop/ser322_team20_cookbook
 ```
@@ -49,7 +49,7 @@ C:/Users/Wraith/Desktop/ser322_team20_cookbook
 ```
 java -cp lib/mysql-connector-java-8.0.23.jar;bin cookbook.Application "jdbc:mysql://localhost/cookbook?autoReconnect=true&useSSL=false" root mysql com.mysql.cj.jdbc.Driver
 ```
-OR
+[Terminal] OR
 ```
 java -cp lib/mysql-connector-java-8.0.23.jar;bin cookbook.Application "jdbc:mysql://localhost/cookbook?autoReconnect=true&useSSL=false&useLegacyDatetimeCode=false&&serverTimezone=America/New_York" root mysql com.mysql.cj.jdbc.Driver
 ```
