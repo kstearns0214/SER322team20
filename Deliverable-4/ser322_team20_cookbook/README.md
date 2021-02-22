@@ -12,6 +12,7 @@
 
 Here I am using the default connection suggested by MySQL tutorials.
 
+We need to create the database and load it full of information.
 [MySQL Shell] Load the database using:
 ```
 team20_cookbook_create.sql
