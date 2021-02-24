@@ -4,7 +4,7 @@
 
 - `lib` contains the MySQL connector JAR file.
 - `resources` contains the diagrams from Deliverable 2 and 3.
-- `sql` has the `team20_cookbook_create.sql` script which creates and populates the database.
+- `sql` has the `create.sql` script which creates and populates the database.
 
 ## Instructions to use MySQL to load the scripts and access the java file:
 
@@ -27,11 +27,11 @@ team20_cookbook_create.sql
 ```
 [MySQL Shell] OR
 ```
-source <path to file>/ser322_team20_cookbook/sql/team20_create_cookbook.sql
+source <path to file>/cookbook/sql/create.sql
 ```
 [MySQL Shell] For example:
 ```
-source C://Users/Wraith/Desktop/ser322_team20_cookbook/sql/team20_create_cookbook.sql
+source C://Users/Wraith/Desktop/cookbook/sql/create.sql
 ```
 
 [MySQL Shell] Make sure the MySQL shell has access to the cookbook database by using:
@@ -44,16 +44,23 @@ show databases;
 use cookbook;
 ```
 
-[Terminal] Open a terminal and locate the files using:
+[Terminal] Open a terminal and locate the RecipePages java file using:
 ```
-<path to file>/ser322_team20_cookbook
+<path to file>/cookbook/src/cookbook
 ```
 [Terminal] OR
 ```
-C:/Users/Wraith/Desktop/ser322_team20_cookbook
+C:/Users/Wraith/Desktop/cookbook/src/cookbook
 ```
 
-[Terminal] Connect to the application using:
+[Terminal] Create a RecipePages class file using:
+```
+javac RecipePages.java
+```
+
+[Terminal] Navigate to the source directory of `<path to folder>/cookbook`
+
+[Terminal] Connect to the application database using:
 ```
 java -cp lib/mysql-connector-java-8.0.23.jar;bin cookbook.RecipePages "jdbc:mysql://localhost/cookbook?autoReconnect=true&useSSL=false" root mysql com.mysql.cj.jdbc.Driver
 ```
