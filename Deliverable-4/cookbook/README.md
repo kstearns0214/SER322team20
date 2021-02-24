@@ -1,5 +1,8 @@
 # ser322_team20_cookbook
 
+- Please keep these instructions.
+- If you edit the `RecipesPages.java` file, you need to create a new class file and place it in: `Deliverable-4/cookbook/bin/cookbook`
+
 ## File Organization:
 
 - `lib` contains the MySQL connector JAR file.
