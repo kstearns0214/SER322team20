@@ -32,9 +32,10 @@ public class RecipePages {
     private static void selectQ(Scanner scan) {
     	// based on the SELECT queries submitted for Deliverable 3
     	// THIS SECTION DOESN'T WORK. I thought I could just copypasta everything in from our deliverable 3, but nah. D:
-        String query1 = "SELECT recipeID FROM recipe WHERE recipe.name = 'French Toast'";
+        String query1 = "SELECT recipeID FROM recipe WHERE recipe.name = 'Roast Brocolli'";
 		String query2 = "SELECT name, totalCalories FROM recipe INNER JOIN instructions ON recipe.recipeID = instructions.recipeID WHERE recipe.name = 'French Toast";
 		String query3 = "SELECT recipe.name AS recipeName, has_ingredients.name AS ingredientName, amount, unitOfMeasure FROM has_ingredients INNER JOIN recipe ON recipe.recipeID = has_ingredients.recipeID INNER JOIN ingredients on has_ingredients.name = ingredients.name WHERE recipe.name = 'Omelet'";
+        String query4 = "Shopping List for a named recipe";
 
         int select;
         do {
@@ -42,13 +43,14 @@ public class RecipePages {
             System.out.println("1. " + query1 + "\n");
             System.out.println("2. " + query2 + "\n");
             System.out.println("3. " + query3 + "\n");
+            System.out.println("4. " + query4 + "\n");
 			
             while (!scan.hasNextInt()) {
                 System.out.println("Error!");
                 scan.next();
             }
             select = scan.nextInt();
-        } while (select < 1 || select > 3);
+        } while (select < 1 || select > 4);
         System.out.println("Success!" + "\n");
 
         try {
@@ -74,9 +76,29 @@ public class RecipePages {
                     rs = stmt.executeQuery(query3);
                     while (rs.next()) {
 						// should print out name of recipe
-                        System.out.print(rs.getString("recipe.name") + "\t");
+                        System.out.print(rs.getString(1) + "\t");
                     }
                     break;
+                case 4:
+                System.out.println("Enter name of recipe to shop for: ");
+                String shopName = scan.next();
+                    ps = conn.prepareStatement("SELECT recipe.name AS recipeName, has_ingredients.name AS ingredientName, amount, unitOfMeasure"	
++ " FROM has_ingredients"
++ " INNER JOIN recipe"
++ " ON recipe.recipeID = has_ingredients.recipeID"
++ " INNER JOIN ingredients"
++ " ON has_ingredients.name = ingredients.name"
++ " WHERE recipe.name = ?;");
+                    ps.setString(1, shopName);
+                    rs = ps.executeQuery();
+                    System.out.println("Ingredient Name\tAmount\tUnit\t");
+                    while (rs.next()) {
+                        //System.out.print(rs.getString(1) + "\t");
+                        
+                        System.out.print(rs.getString(2) + "\t\t");
+                        System.out.print(rs.getInt(3) + "\t");
+			            System.out.println(rs.getString(4) + "\t");
+                    }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,6 +121,7 @@ public class RecipePages {
         int colInt2;
         int colInt3;
 		int colInt4;
+        String colServings;
 
         do {
             System.out.println("Select a column to insert data into: ");
@@ -165,7 +188,7 @@ public class RecipePages {
                     colStr3 = scan.next();
                     System.out.println("Please enter the amount of [calories] in the ingredient: ");
                     colInt1 = scan.nextInt();
-                    ps = conn.prepareStatement("INSERT INTO INGREDIENTS VALUES (?, ?, ?, ?)");
+                    ps = conn.prepareStatement("INSERT INTO INGREDIENTS VALUES (?, ?, ?, ?);");
                     ps.setString(1, colStr1);
                     ps.setString(2, colStr2);
                     ps.setString(3, colStr3);
