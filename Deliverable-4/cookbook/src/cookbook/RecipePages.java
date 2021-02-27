@@ -59,7 +59,7 @@ public class RecipePages {
             switch (select) {
                 case 1://select all recipies
                     System.out.println("Recipe Name\t\tNeeded Time\tCaloriesDescription");
-                    rs = stmt.executeQuery("SELECT recipe.name, totalTime, totalCalories, description FROM recipe");
+                    rs = stmt.executeQuery("SELECT recipe.recipeName, totalTime, totalCalories, description FROM recipe");
                     while (rs.next()) {
                         System.out.print(rs.getString(1) + "\t");
                         if (rs.getString(1).length() < 16){
@@ -74,7 +74,7 @@ public class RecipePages {
                     System.out.println("Enter name of category to filter by: ");
                     System.out.println("(Common options are Breakfast, Lunch, Dinner)");
                     String catName = scan.next();
-                    ps = conn.prepareStatement("SELECT recipe.name, totalTime, totalCalories, description FROM recipe"
+                    ps = conn.prepareStatement("SELECT recipe.recipeName, totalTime, totalCalories, description FROM recipe"
                         + " WHERE recipe.category = ?;");
                     ps.setString(1, catName);
                     rs = ps.executeQuery();
@@ -130,14 +130,14 @@ public class RecipePages {
                     System.out.println("Enter name of recipe to shop for: ");
                     scan.nextLine();
                     String shopName = scan.nextLine();
-                    ps = conn.prepareStatement("SELECT recipe.name AS recipeName, has_ingredients.name"
-                        + " AS ingredientName, amount, unitOfMeasure"	
+                    ps = conn.prepareStatement("SELECT recipe.recipeName AS recipeName, has_ingredients.ingredientsName"
+                        + " AS ingredientsName, amount, unitOfMeasure"	
                         + " FROM has_ingredients"
                         + " INNER JOIN recipe"
                         + " ON recipe.recipeID = has_ingredients.recipeID"
                         + " INNER JOIN ingredients"
-                        + " ON has_ingredients.name = ingredients.name"
-                        + " WHERE recipe.name = ?;");
+                        + " ON has_ingredients.ingredientsName = ingredients.ingredientsName"
+                        + " WHERE recipe.recipeName = ?;");
                     ps.setString(1, shopName);
                     rs = ps.executeQuery();
                     System.out.println("Ingredient Name\tAmount\tUnit\t");
@@ -151,11 +151,11 @@ public class RecipePages {
                     System.out.println("Enter name of recipe to get instructions for: ");
                     scan.nextLine();
                     String insName = scan.nextLine();
-                    ps = conn.prepareStatement("SELECT name,step,text"
+                    ps = conn.prepareStatement("SELECT recipeName,step,text2"
                         + " FROM recipe"
                         + " INNER JOIN instructions"
                         + " ON recipe.recipeID = instructions.recipeID"
-                        + " WHERE recipe.name = ?;");
+                        + " WHERE recipe.recipeName = ?;");
                     ps.setString(1, insName);
                     rs = ps.executeQuery();
                     System.out.println("Step\tDirections");
