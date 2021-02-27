@@ -319,19 +319,33 @@ public class RecipePages {
         
         do {
             System.out.println("Select a table to DELETE a tuple from: ");
-            System.out.println("1. USER, 2. RECIPE, 3. INGREDIENTS, 4. SUGGESTION, 5. INSTRUCTIONS, 6. HAS_INGREDIENTS, 7. CATEGORY");
+            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. SUGGESTION, 4. INSTRUCTIONS");
             while (!scan.hasNextInt()) {
                 System.out.println("Error!");
                 scan.next();
             }
             integer = scan.nextInt();
-            // Only accept integer inputs from 1 through 7.
-        } while (integer < 1 || integer > 7);
+        } while (integer < 1 || integer > 4);
         System.out.println("Success!" + "\n");
         try {
             stmt = conn.createStatement();
             switch (integer) {
-                case 1:// delete username
+				// case 1:// delete username
+                	// System.out.println("DELETE FROM USER WHERE userID = ? AND username = ?)");
+                    // System.out.println("Please enter userID: ");
+                    // colInt1 = scan.nextInt();
+                    // System.out.println("Please enter username: ");
+                    // colStr1 = scan.next();
+                    // ps = conn.prepareStatement("DELETE FROM USER WHERE USER.userID = ? AND USER.username = ?");
+                    // ps.setInt(1, colInt1);
+                    // ps.setString(2, colStr1);
+                    // if (ps.executeUpdate() > 0) {
+                        // System.out.println("Success!");
+                    // }
+                    // ps.close();
+                    // conn.commit();
+                    // break;
+                case 1:// delete recipe
                 	System.out.println("DELETE FROM USER WHERE userID = ? AND username = ?)");
                     System.out.println("Please enter userID: ");
                     colInt1 = scan.nextInt();
@@ -346,7 +360,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 2:// recipeID
+                case 2:// delete ingredients
                     System.out.println("DELETE FROM RECIPE WHERE recipeID = ?");
                     System.out.println("Please enter recipeID: ");
                     colInt1 = scan.nextInt();
@@ -358,7 +372,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 3:// ingredients
+                case 3:// delete suggestion
                     System.out.println("DELETE FROM INGREDIENTS WHERE ingredientsName = ?");
                     System.out.println("Please enter ingredientsName: ");
                     colStr1 = scan.next();
@@ -370,53 +384,11 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 4:// suggestion
+                case 4:// delete instruction
                     System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?");
                     System.out.println("Please enter suggestionID: ");
                     colInt1 = scan.nextInt();
                     ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE suggestionID = ?");
-                    ps.setInt(1, colInt1);
-                    if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
-                    }
-                    ps.close();
-                    conn.commit();
-                    break;
-                case 5:// instructions
-                    System.out.println("DELETE FROM INSTRUCTIONS WHERE recipeID = ? AND step = ?");
-                    System.out.println("Please enter recipeID: ");
-                    colInt1 = scan.nextInt();
-                    System.out.println("Please enter step: ");
-                    colInt2 = scan.nextInt();
-                    ps = conn.prepareStatement("DELETE FROM INSTRUCTIONS WHERE RECIPE.recipeID = ? AND INSTRUCTIONS.step = ?");
-                    ps.setInt(1, colInt1);
-                    ps.setInt(2, colInt2);
-                    if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
-                    }
-                    ps.close();
-                    conn.commit();
-                    break;
-                case 6:// has_ingredients
-                    System.out.println("DELETE FROM HAS_INGREDIENTS WHERE recipeID = ? AND ingredientsName = ?");
-                    System.out.println("Please enter recipeID: ");
-                    colInt1 = scan.nextInt();
-                    System.out.println("Please enter ingredientsName: ");
-                    colStr1 = scan.next();
-                    ps = conn.prepareStatement("DELETE FROM HAS_INGREDIENTS WHERE RECIPE.recipeID = ? AND INGREDIENTS.ingredientsName = ?");
-                    ps.setInt(1, colInt1);
-                    ps.setString(2, colStr1);
-                    if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
-                    }
-                    ps.close();
-                    conn.commit();
-                    break;
-                case 7:// category
-                    System.out.println("DELETE FROM CATEGORY WHERE classificationID = ?");
-                    System.out.println("Please enter classificationID: ");
-                    colInt1 = scan.nextInt();
-                    ps = conn.prepareStatement("DELETE FROM CATEGORY WHERE CATEGORY.classificationID = ?");
                     ps.setInt(1, colInt1);
                     if (ps.executeUpdate() > 0) {
                         System.out.println("Success!");
