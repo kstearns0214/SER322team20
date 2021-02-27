@@ -354,9 +354,7 @@ public class RecipePages {
                     selectQ(scan);
                 } else if (in.equals("2") || in.equalsIgnoreCase("Insert")) {
                     insertQ(scan);
-                } else if (in.equals("3") || in.equalsIgnoreCase("INSERT")) {
-                    insertQ(scan);
-                } else if (in.equals("4") || in.equalsIgnoreCase("DELETE")) {
+                } else if (in.equals("3") || in.equalsIgnoreCase("Delete")) {
                     deleteQ(scan);
                 } else if (in.equalsIgnoreCase("Q") || in.equalsIgnoreCase("Exit")) {
                     exitProgram(scan);
@@ -380,7 +378,6 @@ public class RecipePages {
         scan.close();
     }
 
-//remove debug messages
     /**
      * @param args
      */
