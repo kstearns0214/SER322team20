@@ -27,12 +27,23 @@ public class RecipePages {
     private static PreparedStatement ps = null;
 	
     /**
+	 * The SELECT statements allow users to select all recipes,
+	 * all recipes with a filter of a category (breakfast, lunch
+	 * or dinner), select all ingredients, select some ingredients 
+	 * (based on food group), print out a shopping list of
+	 * ingredients based on the name of the recipe, and show the 
+	 * steps and instructions for the name of a recipe.
+	 * 
      * @param scan
      */
     private static void selectQ(Scanner scan) {
+		// select all recipes
         String query1 = "Show all recipes with general details";
+		// select all recipes with a filter
 		String query2 = "Show all recipes with a chosen category";
+		// select all ingredients
 		String query3 = "Show all ingredients";
+		// select some ingredients
         String query4 = "Show all ingredients within in a food group";
         String query5 = "Shopping List for a named recipe";
         String query6 = "Steps and Instructions for a named recipe";
@@ -57,7 +68,7 @@ public class RecipePages {
         try {
             stmt = conn.createStatement();
             switch (select) {
-                case 1://select all recipies
+                case 1:// select all recipies
                     System.out.println("Recipe Name\t\tNeeded Time\tCaloriesDescription");
                     rs = stmt.executeQuery("SELECT recipe.recipeName, totalTime, totalCalories, description FROM recipe");
                     while (rs.next()) {
@@ -70,7 +81,7 @@ public class RecipePages {
                         System.out.println(rs.getString(4));
                     }
                     break;
-                case 2://select all recipes of category
+                case 2:// select all recipes of category
                     System.out.println("Enter name of category to filter by: ");
                     System.out.println("(Common options are Breakfast, Lunch, Dinner)");
                     String catName = scan.next();
@@ -88,7 +99,7 @@ public class RecipePages {
                         System.out.println(rs.getString(4));
                     }
                     break;
-                case 3://select all ingredients
+                case 3:// select all ingredients
                     System.out.println("Name\t\tFood Group\tMeasure\tCalories");
                     rs = stmt.executeQuery("SELECT * FROM ingredients;");
                     while (rs.next()) {
@@ -104,7 +115,7 @@ public class RecipePages {
                         System.out.println(rs.getInt(4));
                     }
                     break;
-                case 4://select ingredients by foodGroup
+                case 4:// select ingredients by foodGroup
                     System.out.println("Enter name of Food Group to filter by: ");
                     System.out.println("(Common options are Dairy, Grain, Protein, Vegetable)");
                     String foodGroup = scan.next();
@@ -126,7 +137,7 @@ public class RecipePages {
                         System.out.println(rs.getInt(4));
                     }
                     break;
-                case 5://get shopping list
+                case 5:// get shopping list
                     System.out.println("Enter name of recipe to shop for: ");
                     scan.nextLine();
                     String shopName = scan.nextLine();
@@ -147,7 +158,7 @@ public class RecipePages {
 			            System.out.println(rs.getString(4) + "\t");
                     }
                     break;
-                case 6://get instructions
+                case 6:// get instructions
                     System.out.println("Enter name of recipe to get instructions for: ");
                     scan.nextLine();
                     String insName = scan.nextLine();
@@ -172,6 +183,9 @@ public class RecipePages {
     }
 	
     /**
+	 * The INSERT statements allow the user to add a recipe, add an
+	 * ingredient, add a suggestion, and add an instruction to a recipe.
+	 * 
      * @param scan
      */
     private static void insertQ(Scanner scan) {
@@ -202,8 +216,7 @@ public class RecipePages {
         try {
             stmt = conn.createStatement();
             switch (integer) {
-                case 1:
-                	// recipe table
+                case 1:// recipe table
                     System.out.println("INSERT INTO RECIPE VALUES (recipeid, recipeName, category, description, servings, totalTime, prepTime, cookTime, totalCalories, classificationID)");
 					System.out.println("Please enter the [recipeid] of recipe: ");
                     colInt4 = scan.nextInt();
@@ -242,8 +255,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 2:
-                	// ingredients table
+                case 2:// ingredients table
                     System.out.println("INSERT INTO INGREDIENTS VALUES (recipeID, foodGroup, unitOfMeasure, caloricContent)");
                     System.out.println("Please enter the [recipe identification number]: ");
                     colStr1 = scan.next();
@@ -264,8 +276,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 3:
-                	// instructions table
+                case 3:// instructions table
                     System.out.println("INSERT INTO INSTRUCTIONS VALUES (recipeID, instructionID, step, text)");
                     System.out.println("Please enter the [recipe identification number] ");
                     colInt1 = scan.nextInt();
@@ -294,6 +305,10 @@ public class RecipePages {
     }
 	
     /**
+	 * The DELETE statements allow the user to delete a recipe, delete an
+	 * ingredient, delete a suggestion, and delete an instruction from a 
+	 * recipe.
+	 * 
      * @param scan
      */
     private static void deleteQ(Scanner scan) {
@@ -316,8 +331,7 @@ public class RecipePages {
         try {
             stmt = conn.createStatement();
             switch (integer) {
-                case 1:
-				// delete username
+                case 1:// delete username
                 	System.out.println("DELETE FROM USER WHERE userID = ? AND username = ?)");
                     System.out.println("Please enter userID: ");
                     colInt1 = scan.nextInt();
@@ -332,8 +346,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 2:
-				// recipeID
+                case 2:// recipeID
                     System.out.println("DELETE FROM RECIPE WHERE recipeID = ?");
                     System.out.println("Please enter recipeID: ");
                     colInt1 = scan.nextInt();
@@ -345,8 +358,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 3:
-				// ingredients
+                case 3:// ingredients
                     System.out.println("DELETE FROM INGREDIENTS WHERE ingredientsName = ?");
                     System.out.println("Please enter ingredientsName: ");
                     colStr1 = scan.next();
@@ -358,8 +370,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 4:
-                // suggestion
+                case 4:// suggestion
                     System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?");
                     System.out.println("Please enter suggestionID: ");
                     colInt1 = scan.nextInt();
@@ -371,8 +382,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 5:
-                // instructions
+                case 5:// instructions
                     System.out.println("DELETE FROM INSTRUCTIONS WHERE recipeID = ? AND step = ?");
                     System.out.println("Please enter recipeID: ");
                     colInt1 = scan.nextInt();
@@ -387,8 +397,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 6:
-                	// has_ingredients
+                case 6:// has_ingredients
                     System.out.println("DELETE FROM HAS_INGREDIENTS WHERE recipeID = ? AND ingredientsName = ?");
                     System.out.println("Please enter recipeID: ");
                     colInt1 = scan.nextInt();
@@ -403,8 +412,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 7:
-				// category
+                case 7:// category
                     System.out.println("DELETE FROM CATEGORY WHERE classificationID = ?");
                     System.out.println("Please enter classificationID: ");
                     colInt1 = scan.nextInt();
@@ -424,7 +432,7 @@ public class RecipePages {
     }
 	
     /**
-     * 
+     * Main menu of the app.
      */
     private static void getUserInput() {
     	System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
@@ -462,7 +470,7 @@ public class RecipePages {
      * @param scan
      */
     private static void exitProgram(Scanner scan) {
-        System.out.print("Toodle-loo! Thanks for using the Cookbook database! Goodbye. ");
+        System.out.print("Toodle-loo! Thanks for using the Cookbook database by team 20! Goodbye. ");
         scan.close();
     }
 
