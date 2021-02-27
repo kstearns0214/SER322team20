@@ -128,7 +128,8 @@ public class RecipePages {
                     break;
                 case 5://get shopping list
                     System.out.println("Enter name of recipe to shop for: ");
-                    String shopName = scan.next();
+                    scan.nextLine();
+                    String shopName = scan.nextLine();
                     ps = conn.prepareStatement("SELECT recipe.name AS recipeName, has_ingredients.name"
                         + " AS ingredientName, amount, unitOfMeasure"	
                         + " FROM has_ingredients"
@@ -148,7 +149,8 @@ public class RecipePages {
                     break;
                 case 6://get instructions
                     System.out.println("Enter name of recipe to get instructions for: ");
-                    String insName = scan.next();
+                    scan.nextLine();
+                    String insName = scan.nextLine();
                     ps = conn.prepareStatement("SELECT name,step,text"
                         + " FROM recipe"
                         + " INNER JOIN instructions"
