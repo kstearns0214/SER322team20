@@ -30,11 +30,12 @@ public class RecipePages {
      * @param scan
      */
     private static void selectQ(Scanner scan) {
-    	// based on the SELECT queries submitted for Deliverable 3
-    	// THIS SECTION DOESN'T WORK. I thought I could just copypasta everything in from our deliverable 3, but nah. D:
-        String query1 = "SELECT recipeID FROM recipe WHERE recipe.name = 'French Toast'";
-		String query2 = "SELECT name, totalCalories FROM recipe INNER JOIN instructions ON recipe.recipeID = instructions.recipeID WHERE recipe.name = 'French Toast";
-		String query3 = "SELECT recipe.name AS recipeName, has_ingredients.name AS ingredientName, amount, unitOfMeasure FROM has_ingredients INNER JOIN recipe ON recipe.recipeID = has_ingredients.recipeID INNER JOIN ingredients on has_ingredients.name = ingredients.name WHERE recipe.name = 'Omelet'";
+        String query1 = "Show all recipes with general details";
+		String query2 = "Show all recipes with a chosen category";
+		String query3 = "Show all ingredients";
+        String query4 = "Show all ingredients within in a food group";
+        String query5 = "Shopping List for a named recipe";
+        String query6 = "Steps and Instructions for a named recipe";
 
         int select;
         do {
@@ -42,39 +43,125 @@ public class RecipePages {
             System.out.println("1. " + query1 + "\n");
             System.out.println("2. " + query2 + "\n");
             System.out.println("3. " + query3 + "\n");
-			
+            System.out.println("4. " + query4 + "\n");
+            System.out.println("5. " + query5 + "\n");
+            System.out.println("6. " + query6 + "\n");
             while (!scan.hasNextInt()) {
                 System.out.println("Error!");
                 scan.next();
             }
             select = scan.nextInt();
-        } while (select < 1 || select > 3);
-        System.out.println("Success!" + "\n");
+        } while (select < 1 || select > 6);
+        //System.out.println("Success!" + "\n");
 
         try {
             stmt = conn.createStatement();
             switch (select) {
-                case 1:
-                    rs = stmt.executeQuery(query1);
-
+                case 1://select all recipies
+                    System.out.println("Recipe Name\t\tNeeded Time\tCaloriesDescription");
+                    rs = stmt.executeQuery("SELECT recipe.recipeName, totalTime, totalCalories, description FROM recipe");
                     while (rs.next()) {
-						//this should print out the id
-                        System.out.println(rs.getString("recipeID") + "\t");
+                        System.out.print(rs.getString(1) + "\t");
+                        if (rs.getString(1).length() < 16){
+                            System.out.print("\t");
+                        }
+                        System.out.print(rs.getString(2) + "\t");
+                        System.out.print(rs.getInt(3) + "\t");
+                        System.out.println(rs.getString(4));
                     }
                     break;
-                case 2:
-                    rs = stmt.executeQuery(query2);
+                case 2://select all recipes of category
+                    System.out.println("Enter name of category to filter by: ");
+                    System.out.println("(Common options are Breakfast, Lunch, Dinner)");
+                    String catName = scan.next();
+                    ps = conn.prepareStatement("SELECT recipe.recipeName, totalTime, totalCalories, description FROM recipe"
+                        + " WHERE recipe.category = ?;");
+                    ps.setString(1, catName);
+                    rs = ps.executeQuery();
                     while (rs.next()) {
-						//should print out name and total calories of recipe
-                        System.out.print(rs.getString("name") + "\t");
-                        System.out.print(rs.getString("totalCalories") + "\t");
+                        System.out.print(rs.getString(1) + "\t");
+                        if (rs.getString(1).length() < 16){
+                            System.out.print("\t");
+                        }
+                        System.out.print(rs.getString(2) + "\t");
+                        System.out.print(rs.getInt(3) + "\t");
+                        System.out.println(rs.getString(4));
                     }
                     break;
-                case 3:
-                    rs = stmt.executeQuery(query3);
+                case 3://select all ingredients
+                    System.out.println("Name\t\tFood Group\tMeasure\tCalories");
+                    rs = stmt.executeQuery("SELECT * FROM ingredients;");
                     while (rs.next()) {
-						// should print out name of recipe
-                        System.out.print(rs.getString("recipe.name") + "\t");
+                        System.out.print(rs.getString(1) + "\t");
+                        if (rs.getString(1).length() < 8){
+                            System.out.print("\t");
+                        }
+                        System.out.print(rs.getString(2) + "\t");
+                        if (rs.getString(2).length() < 8){
+                            System.out.print("\t");
+                        }
+                        System.out.print(rs.getString(3) + "\t");
+                        System.out.println(rs.getInt(4));
+                    }
+                    break;
+                case 4://select ingredients by foodGroup
+                    System.out.println("Enter name of Food Group to filter by: ");
+                    System.out.println("(Common options are Dairy, Grain, Protein, Vegetable)");
+                    String foodGroup = scan.next();
+                    ps = conn.prepareStatement("SELECT * FROM ingredients"
+                       + " WHERE ingredients.foodGroup = ?;");
+                    ps.setString(1, foodGroup);
+                    System.out.println("Name\t\tFood Group\tMeasure\tCalories");
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        System.out.print(rs.getString(1) + "\t");
+                        if (rs.getString(1).length() < 8){
+                            System.out.print("\t");
+                        }
+                        System.out.print(rs.getString(2) + "\t");
+                        if (rs.getString(2).length() < 8){
+                            System.out.print("\t");
+                        }
+                        System.out.print(rs.getString(3) + "\t");
+                        System.out.println(rs.getInt(4));
+                    }
+                    break;
+                case 5://get shopping list
+                    System.out.println("Enter name of recipe to shop for: ");
+                    scan.nextLine();
+                    String shopName = scan.nextLine();
+                    ps = conn.prepareStatement("SELECT recipe.recipeName AS recipeName, has_ingredients.ingredientsName"
+                        + " AS ingredientsName, amount, unitOfMeasure"	
+                        + " FROM has_ingredients"
+                        + " INNER JOIN recipe"
+                        + " ON recipe.recipeID = has_ingredients.recipeID"
+                        + " INNER JOIN ingredients"
+                        + " ON has_ingredients.ingredientsName = ingredients.ingredientsName"
+                        + " WHERE recipe.recipeName = ?;");
+                    ps.setString(1, shopName);
+                    rs = ps.executeQuery();
+                    System.out.println("Ingredient Name\tAmount\tUnit\t");
+                    while (rs.next()) {
+                        System.out.print(rs.getString(2) + "\t\t");
+                        System.out.print(rs.getInt(3) + "\t");
+			            System.out.println(rs.getString(4) + "\t");
+                    }
+                    break;
+                case 6://get instructions
+                    System.out.println("Enter name of recipe to get instructions for: ");
+                    scan.nextLine();
+                    String insName = scan.nextLine();
+                    ps = conn.prepareStatement("SELECT recipeName,step,text2"
+                        + " FROM recipe"
+                        + " INNER JOIN instructions"
+                        + " ON recipe.recipeID = instructions.recipeID"
+                        + " WHERE recipe.recipeName = ?;");
+                    ps.setString(1, insName);
+                    rs = ps.executeQuery();
+                    System.out.println("Step\tDirections");
+                    while (rs.next()) {
+                        System.out.print(rs.getInt(2) + "\t");
+                        System.out.println(rs.getString(3));
                     }
                     break;
             }
@@ -99,6 +186,7 @@ public class RecipePages {
         int colInt2;
         int colInt3;
 		int colInt4;
+        String colServings;
 
         do {
             System.out.println("Select a column to insert data into: ");
@@ -165,7 +253,7 @@ public class RecipePages {
                     colStr3 = scan.next();
                     System.out.println("Please enter the amount of [calories] in the ingredient: ");
                     colInt1 = scan.nextInt();
-                    ps = conn.prepareStatement("INSERT INTO INGREDIENTS VALUES (?, ?, ?, ?)");
+                    ps = conn.prepareStatement("INSERT INTO INGREDIENTS VALUES (?, ?, ?, ?);");
                     ps.setString(1, colStr1);
                     ps.setString(2, colStr2);
                     ps.setString(3, colStr3);
