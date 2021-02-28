@@ -10,7 +10,10 @@ import java.util.Scanner;
 import java.sql.Time;
 
 /**
- *
+ * This project is the implementation of recipe database in which a 
+ * user uses the program "Cookbook" to view, add, edit and delete 
+ * recipes, ingredients and instructions, and suggestions.
+ * 
  * SER 322
  * Team 20
  * Project Deliverable 4
@@ -39,10 +42,13 @@ public class RecipePages {
     private static void selectQ(Scanner scan) {
 		// select all recipes
         String query1 = "Show all recipes with general details";
+        
 		// select all recipes with a filter
 		String query2 = "Show all recipes with a chosen category";
+		
 		// select all ingredients
 		String query3 = "Show all ingredients";
+		
 		// select some ingredients
         String query4 = "Show all ingredients within in a food group";
         String query5 = "Shopping List for a named recipe";
@@ -68,7 +74,7 @@ public class RecipePages {
         try {
             stmt = conn.createStatement();
             switch (select) {
-                case 1:// select all recipies
+                case 1:// select all recipes
                     System.out.println("Recipe Name\t\tNeeded Time\tCaloriesDescription");
                     rs = stmt.executeQuery("SELECT recipe.recipeName, totalTime, totalCalories, description FROM recipe");
                     while (rs.next()) {
@@ -315,7 +321,6 @@ public class RecipePages {
         int integer = 0;
         String colStr1;
         int colInt1;
-        int colInt2;
         
         do {
             System.out.println("Select a table to DELETE a tuple from: ");
@@ -326,7 +331,7 @@ public class RecipePages {
             }
             integer = scan.nextInt();
         } while (integer < 1 || integer > 4);
-        System.out.println("Success!" + "\n");
+        //System.out.println("Success!" + "\n");
         try {
             stmt = conn.createStatement();
             switch (integer) {
@@ -346,49 +351,51 @@ public class RecipePages {
                     // conn.commit();
                     // break;
                 case 1:// delete recipe
-                	System.out.println("DELETE FROM USER WHERE userID = ? AND username = ?)");
-                    System.out.println("Please enter userID: ");
+					System.out.println("Test recipeIDs include: 1. Omelette, 2. Roast Broccoli, 3. Avacado on Toast, "
+					+ "4. Ham and Cheese Sandwich, and 5. Pan Seared Salmon\n");
+                	System.out.println("DELETE FROM RECIPE WHERE recipeID = ?)");
+                    System.out.println("Please enter recipeID number: ");
                     colInt1 = scan.nextInt();
-                    System.out.println("Please enter username: ");
-                    colStr1 = scan.next();
-                    ps = conn.prepareStatement("DELETE FROM USER WHERE USER.userID = ? AND USER.username = ?");
+                    ps = conn.prepareStatement("DELETE FROM RECIPE WHERE RECIPE.recipeID = ?");
                     ps.setInt(1, colInt1);
-                    ps.setString(2, colStr1);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
+                        System.out.println("Success! The recipe with the recipeID of " + colInt1 + " has been deleted.");
                     }
                     ps.close();
                     conn.commit();
                     break;
                 case 2:// delete ingredients
-                    System.out.println("DELETE FROM RECIPE WHERE recipeID = ?");
-                    System.out.println("Please enter recipeID: ");
-                    colInt1 = scan.nextInt();
-                    ps = conn.prepareStatement("DELETE FROM CUSTOMER WHERE CUSTOMER.Email = ?");
-                    ps.setInt(1, colInt1);
+				    System.out.println("Ingredients can be: egg, chives, butter, broccoli, olive oil, bread, avocado, "
+					+ "cheese, ham or salmon.\n");
+                    System.out.println("DELETE FROM INGREDIENTS WHERE ingredientsName = ?");
+                    System.out.println("Please enter ingredientsName: ");
+                    colStr1 = scan.next();
+                    ps = conn.prepareStatement("DELETE FROM INGREDIENTS WHERE INGREDIENTS.ingredientsName = ?");
+					ps.setString(1, colStr1);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
+                        System.out.println("Success! The ingredient, " + colStr1 + ", has been deleted from the INGREDIENTS table." );
                     }
                     ps.close();
                     conn.commit();
                     break;
                 case 3:// delete suggestion
-                    System.out.println("DELETE FROM INGREDIENTS WHERE ingredientsName = ?");
-                    System.out.println("Please enter ingredientsName: ");
+					System.out.println("Test suggestionIDs include: 1, 2, 3, 4, 5\n");
+                    System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?");
+                    System.out.println("Please enter suggestionID: ");
                     colStr1 = scan.next();
-                    ps = conn.prepareStatement("DELETE FROM INGREDIENTS WHERE INGREDIENTS.ingredientsName = ?");
+                    ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE suggestionID = ?");
                     ps.setString(1, colStr1);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
+                        System.out.println("Success! " + colStr1 + " has been deleted from the SUGGESTION table.");
                     }
                     ps.close();
                     conn.commit();
                     break;
                 case 4:// delete instruction
-                    System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?");
-                    System.out.println("Please enter suggestionID: ");
+                    System.out.println("DELETE FROM INSTRUCTIONS WHERE instructionID = ?");
+                    System.out.println("Please enter instructionID: ");
                     colInt1 = scan.nextInt();
-                    ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE suggestionID = ?");
+                    ps = conn.prepareStatement("DELETE FROM INSTRUCTIONS WHERE INSTRUCTIONS.instructionID = ?");
                     ps.setInt(1, colInt1);
                     if (ps.executeUpdate() > 0) {
                         System.out.println("Success!");
@@ -414,7 +421,7 @@ public class RecipePages {
         System.out.println("1 - SELECT data");
         System.out.println("2 - INSERT data");
         System.out.println("3 - DELETE data");
-        System.out.println("Q - Exit app\n");
+        System.out.println("Q - Exit the app\n");
         try (Scanner scan = new Scanner(System.in)) {
             while (scan.hasNext()) {
                 String in = scan.next();
@@ -433,7 +440,7 @@ public class RecipePages {
                 }
             }
         } catch (Exception e) {
-            System.out.println("Oh no! Didn't catch that. Re-input the same information please!");
+            System.out.println("Oh no! Didn't catch that. Re-input the same information please!\n");
             e.printStackTrace();
         }
     }
@@ -442,7 +449,7 @@ public class RecipePages {
      * @param scan
      */
     private static void exitProgram(Scanner scan) {
-        System.out.print("Toodle-loo! Thanks for using the Cookbook database by team 20! Goodbye. ");
+        System.out.print("Toodle-loo!\n Thanks for using the Cookbook database by team 20!\n Goodbye.\n ");
         scan.close();
     }
 
@@ -451,18 +458,17 @@ public class RecipePages {
      */
     public static void main(String[] args) {
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-        System.out.println("The secret ingredient is love, ");
-		System.out.println("but for facts, here's a database full of recipes:");
-		System.out.println("the Cookbook!");
+        System.out.println("The secret ingredient is love,\n but for facts, here's a database full of " 
+		+ "recipes:\n the Cookbook by team 20!");
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
-        System.out.print("Attempting to connect to the database.");
+        System.out.print("Attempting to connect to the database.\n");
         String _url = args[0];
         try {
             Class.forName(args[3]);
             conn = DriverManager.getConnection(_url, args[1], args[2]);
             conn.setAutoCommit(false);
         } catch (ClassNotFoundException | SQLException se) {
-            System.out.println("Cannot connect to the server.");
+            System.out.println("Cannot connect to the server.\n");
             se.printStackTrace();
         }
         System.out.println("Connected to the server.\n");
@@ -479,16 +485,16 @@ public class RecipePages {
                     stmt.close();
                 }
             } catch (SQLException se) {
-                System.out.println("Database resource leak!");
+                System.out.println("Database resource leak!\n");
                 se.printStackTrace();
             }
             try {
                 if (conn != null) {
                     conn.close();
-                    System.out.println("Connection finalized.");
+                    System.out.println("Connection finalized.\n");
                 }
             } catch (Throwable se) {
-                System.out.println("Definitely a resource leak!");
+                System.out.println("Definitely a resource leak!\n");
                 se.printStackTrace();
             }
         }
