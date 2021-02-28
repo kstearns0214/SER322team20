@@ -321,6 +321,7 @@ public class RecipePages {
         int integer = 0;
         String colStr1;
         int colInt1;
+		int colInt2;
         
         do {
             System.out.println("Select a table to DELETE a tuple from: ");
@@ -353,7 +354,7 @@ public class RecipePages {
                 case 1:// delete recipe
 					System.out.println("Test recipeIDs include: 1. Omelette, 2. Roast Broccoli, 3. Avacado on Toast, "
 					+ "4. Ham and Cheese Sandwich, and 5. Pan Seared Salmon\n");
-                	System.out.println("DELETE FROM RECIPE WHERE recipeID = ?)");
+                	System.out.println("DELETE FROM RECIPE WHERE recipeID = ?;");
                     System.out.println("Please enter recipeID number: ");
                     colInt1 = scan.nextInt();
                     ps = conn.prepareStatement("DELETE FROM RECIPE WHERE RECIPE.recipeID = ?");
@@ -367,7 +368,7 @@ public class RecipePages {
                 case 2:// delete ingredients
 				    System.out.println("Ingredients can be: egg, chives, butter, broccoli, olive oil, bread, avocado, "
 					+ "cheese, ham or salmon.\n");
-                    System.out.println("DELETE FROM INGREDIENTS WHERE ingredientsName = ?");
+                    System.out.println("DELETE FROM INGREDIENTS WHERE ingredientsName = ?;");
                     System.out.println("Please enter ingredientsName: ");
                     colStr1 = scan.next();
                     ps = conn.prepareStatement("DELETE FROM INGREDIENTS WHERE INGREDIENTS.ingredientsName = ?");
@@ -380,7 +381,7 @@ public class RecipePages {
                     break;
                 case 3:// delete suggestion
 					System.out.println("Test suggestionIDs include: 1, 2, 3, 4, 5\n");
-                    System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?");
+                    System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?;");
                     System.out.println("Please enter suggestionID: ");
                     colStr1 = scan.next();
                     ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE suggestionID = ?");
@@ -392,11 +393,17 @@ public class RecipePages {
                     conn.commit();
                     break;
                 case 4:// delete instruction
-                    System.out.println("DELETE FROM INSTRUCTIONS WHERE instructionID = ?");
-                    System.out.println("Please enter instructionID: ");
+                    System.out.println("DELETE FROM INSTRUCTIONS" 
+						+ " INNER JOIN INSTRUCTIONS"
+						+ " ON RECIPE.recipeID = INSTRUCTIONS.recipeID"
+						+ " WHERE INSTRUCTIONS.instructionID = ?;");
+                    System.out.println("Please enter recipeID: ");
                     colInt1 = scan.nextInt();
-                    ps = conn.prepareStatement("DELETE FROM INSTRUCTIONS WHERE INSTRUCTIONS.instructionID = ?");
+					System.out.println("Please enter instructionID: ");
+                    colInt2 = scan.nextInt();
+                    ps = conn.prepareStatement("DELETE FROM INSTRUCTIONS INNER JOIN INSTRUCTIONS ON RECIPE.recipeID = INSTRUCTIONS.recipeID WHERE INSTRUCTIONS.instructionID = ?");
                     ps.setInt(1, colInt1);
+					ps.setInt(2, colInt2);
                     if (ps.executeUpdate() > 0) {
                         System.out.println("Success!");
                     }
