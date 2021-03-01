@@ -7,6 +7,9 @@ import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.util.Scanner;
+
+import javax.lang.model.util.ElementScanner6;
+
 import java.sql.Time;
 
 /**
@@ -308,6 +311,50 @@ public class RecipePages {
             e.printStackTrace();
         }
         getUserInput();
+    }
+
+    private static void editQ(Scanner scan)
+    {
+        int integer = 0;
+        String colStr1;
+        int colInt1;
+        int selAtt;
+        int colInt2;
+        int eInt1;
+        String eString1;
+        do {
+            System.out.println("Select a table to EDIT: ");
+            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. INSTRUCTIONS");
+            while (!scan.hasNextInt()) {
+                System.out.println("Error!");
+                scan.next();
+            }
+            integer = scan.nextInt();
+        } while (integer < 1 || integer > 3);
+        //System.out.println("Success!" + "\n");
+        try {
+            stmt = conn.createStatement();
+            switch (integer) {
+                case 1:// edit recipe
+                    System.out.println("Test recipeIDs include: 1. Omelette, 2. Roast Broccoli, 3. Avacado on Toast, "
+					+ "4. Ham and Cheese Sandwich, and 5. Pan Seared Salmon\n");
+                    System.out.println("Please enter recipeID number to edit: ");
+                    colInt1 = scan.nextInt();
+                    System.out.println("Please enter the number of the attribute to be edited: ");
+                    System.out.println("1.recipeName 2.totalTime 3.totalCalories 4.description");
+                    selAtt = scan.nextInt();
+                    System.out.println("Please enter the change you wish to make.");
+                    System.out.println("Time should be in HH:MM:SS format.");
+                    if (selAtt == 3)
+                    {
+                        eInt1 = scan.nextInt();
+                    }
+                    else
+                    {
+                        eString1 = scan.nextline();
+                    }
+                    ps = conn.prepareStatement("UPDATE ? SET ? = ? WHERE RECIPE.recipeID = ?");
+
     }
 	
     /**
