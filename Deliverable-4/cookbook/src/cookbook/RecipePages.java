@@ -325,13 +325,13 @@ public class RecipePages {
         
         do {
             System.out.println("Select a table to DELETE a tuple from: ");
-            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. SUGGESTION, 4. INSTRUCTIONS, 5. USERS 6. SUGGESTION");
+            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. SUGGESTION, 4. INSTRUCTIONS");
             while (!scan.hasNextInt()) {
                 System.out.println("Error!");
                 scan.next();
             }
             integer = scan.nextInt();
-        } while (integer < 1 || integer > 6);
+        } while (integer < 1 || integer > 4);
         //System.out.println("Success!" + "\n");
         try {
             stmt = conn.createStatement();
@@ -393,32 +393,32 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-				case 5:// delete username
-					System.out.println("Test userIDs include: 1, 2, 3, 4, 5, 6, 7, and 8.");
-                	System.out.println("DELETE FROM USER WHERE userID = ?");
-                    System.out.println("Please enter userID: ");
-                    colInt1 = scan.nextInt();
-                    ps = conn.prepareStatement("DELETE FROM USER WHERE USER.userID = ?");
-                    ps.setInt(1, colInt1);
-                    if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
-                    }
-                    ps.close();
-                    conn.commit();
-                    break;
-				case 6:// delete suggestion
-					System.out.println("Test userIDs include: 1, 2, 3, 4, and 5.");
-                	System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?");
-                    System.out.println("Please enter suggestionID: ");
-                    colInt1 = scan.nextInt();
-                    ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE SUGGESTION.suggestionID = ?");
-                    ps.setInt(1, colInt1);
-                    if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
-                    }
-                    ps.close();
-                    conn.commit();
-                    break;
+				// case 5:// delete username
+					// System.out.println("Test userIDs include: 1, 2, 3, 4, 5, 6, 7, and 8.");
+                	// System.out.println("DELETE FROM USER WHERE userID = ?");
+                    // System.out.println("Please enter userID: ");
+                    // colInt1 = scan.nextInt();
+                    // ps = conn.prepareStatement("DELETE FROM USER WHERE USER.userID = ?");
+                    // ps.setInt(1, colInt1);
+                    // if (ps.executeUpdate() > 0) {
+                        // System.out.println("Success!");
+                    // }
+                    // ps.close();
+                    // conn.commit();
+                    // break;
+				// case 6:// delete suggestion
+					// System.out.println("Test userIDs include: 1, 2, 3, 4, and 5.");
+                	// System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?");
+                    // System.out.println("Please enter suggestionID: ");
+                    // colInt1 = scan.nextInt();
+                    // ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE SUGGESTION.suggestionID = ?");
+                    // ps.setInt(1, colInt1);
+                    // if (ps.executeUpdate() > 0) {
+                        // System.out.println("Success!");
+                    // }
+                    // ps.close();
+                    // conn.commit();
+                    // break;
             }
         } catch (Exception e) {
             e.printStackTrace();
