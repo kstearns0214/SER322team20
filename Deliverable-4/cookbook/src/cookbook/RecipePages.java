@@ -331,7 +331,7 @@ public class RecipePages {
                 scan.next();
             }
             integer = scan.nextInt();
-        } while (integer < 1 || integer > 5);
+        } while (integer < 1 || integer > 6);
         //System.out.println("Success!" + "\n");
         try {
             stmt = conn.createStatement();
