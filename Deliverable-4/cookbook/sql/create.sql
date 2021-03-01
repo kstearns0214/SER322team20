@@ -100,9 +100,9 @@ INSERT INTO `category` VALUES
 ('4');
 
 INSERT INTO `recipe`VALUES
-(1,'Omelet','Breakfast','Delicious simple omelet made in ten minutes', 1, '00:10:00', '00:05:00','00:05:00',400,1),
+(1,'Omelette','Breakfast','Delicious simple Omelette made in ten minutes', 1, '00:10:00', '00:05:00','00:05:00',400,1),
 (2,'Roast Broccoli','Dinner','Delicious and easy side dish for dinner', 2, '00:25:00', '00:05:00','00:20:00',120, 3),
-(3,'Avacado on Toast','Breakfast','Simple and hardy breakfast meal that will keep you full', 1, '00:10:00', '00:03:00','00:07:00',200,1),
+(3,'Avocado on Toast','Breakfast','Simple and hardy breakfast meal that will keep you full', 1, '00:10:00', '00:03:00','00:07:00',200,1),
 (4,'Ham and Cheese Sandwich','Lunch','Simple lunch item that even your kids will love', 1, '00:05:00', '00:01:00','00:04:00',400,2),
 (5,'Pan Seared Salmon','Dinner','Tender Salmon dish that will leave your mouth wanting more', 1, '00:15:00', '00:05:00','00:10:00',400,3);
 

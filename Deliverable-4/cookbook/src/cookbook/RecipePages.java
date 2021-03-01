@@ -405,7 +405,7 @@ public class RecipePages {
                     ps.setInt(1, colInt1);
 					ps.setInt(2, colInt2);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
+                        System.out.println("Success! Instruction " + colInt2 + " has been deleted from the recipe " + colInt1 + ".");
                     }
                     ps.close();
                     conn.commit();
