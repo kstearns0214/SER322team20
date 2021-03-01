@@ -325,7 +325,7 @@ public class RecipePages {
         
         do {
             System.out.println("Select a table to DELETE a tuple from: ");
-            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. SUGGESTION, 4. INSTRUCTIONS, 5. USERS");
+            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. SUGGESTION, 4. INSTRUCTIONS, 5. USERS 6. SUGGESTION");
             while (!scan.hasNextInt()) {
                 System.out.println("Error!");
                 scan.next();
@@ -386,7 +386,7 @@ public class RecipePages {
                     colInt2 = scan.nextInt();
                     ps = conn.prepareStatement("DELETE instructions FROM instructions INNER JOIN recipe ON (recipe.recipeID = instructions.recipeID) WHERE recipe.recipeID = ? AND instructions.instructionID = ?;");
                     ps.setInt(1, colInt1);
-                    ps.setInt(1, colInt2);
+                    ps.setInt(2, colInt2);
                     if (ps.executeUpdate() > 0) {
                         System.out.println("Success!");
                     }
