@@ -10,10 +10,8 @@
 **********************************************************************
 */
 
-CREATE DATABASE cookbook;
-SHOW DATABASES;
-USE cookbook;
 create schema cookbook;
+USE cookbook;
 
 
 create table cookbook.cookbook(
