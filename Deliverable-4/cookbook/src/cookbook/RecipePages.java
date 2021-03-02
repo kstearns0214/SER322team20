@@ -17,10 +17,11 @@ import java.sql.Time;
  * SER 322
  * Team 20
  * Project Deliverable 4
+ * 
  * @author - Kimberlee Gentry
  * @author - Edward Kim
  * @author - Kyle Stearns
- * @version
+ * @version 1.0 02/03/2021
  */
 public class RecipePages {
 
@@ -205,8 +206,7 @@ public class RecipePages {
         int colInt1;
         int colInt2;
         int colInt3;
-		    int colInt4;
-        String colServings;
+		int colInt4;
 
         do {
             System.out.println("Select a column to insert data into: ");
@@ -223,33 +223,37 @@ public class RecipePages {
             stmt = conn.createStatement();
             switch (integer) {
                 case 1:// recipe table
-                    System.out.println("INSERT INTO RECIPE VALUES (recipeID, recipeName, category, description, servings, totalTime, prepTime, cookTime, totalCalories, classificationID)");
-					          System.out.println("Please enter the [recipeid] of recipe(Greater than 5): ");
+                    System.out.println("INSERT INTO `RECIPE` VALUES (recipeID, recipeName, category, description, servings,"
+                    + "totalTime, prepTime, cookTime, totalCalories, classificationID)");
+					System.out.println("The current recipeIDs of include 1, 2, 3, 4, and 5. Please insert an integer larger than 5.");
+					System.out.println("Please enter the >recipeid< of recipe: ");
                     colInt4 = scan.nextInt();
                     scan.nextLine();
-                    System.out.println("Please enter the [recipeName] of recipe: ");
+                    System.out.println("Please enter the >recipeName< of recipe: ");
                     colStr1 = scan.nextLine();
-                    System.out.println("Please enter the [category] of the recipe(Breakfast, Brunch, Lunch, Dinner): ");
+					System.out.println("The categories of Cookbook include: Breakfast, Brunch, Lunch, Dinner.");
+                    System.out.println("Please enter the >category< of the recipe: ");
                     colStr2 = scan.nextLine();
-                    System.out.println("Please enter a brief [description]: ");
+                    System.out.println("Please enter a brief >description<: ");
                     colStr3 = scan.nextLine();
-                    System.out.println("Please enter the [servings] count: ");
+                    System.out.println("Please enter the >servings< count as an integer: ");
                     colInt1 = scan.nextInt();
                     scan.nextLine();
-                    System.out.println("Please enter the [total time] needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
+                    System.out.println("Please enter the >total time< needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
                     colTim1 = scan.nextLine();
-                    System.out.println("Please enter the [preparation time] needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
+                    System.out.println("Please enter the >preparation time< needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
                     colTim2 = scan.nextLine();
-                    System.out.println("Please enter the [cook time] needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
+                    System.out.println("Please enter the >cook time< needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
                     colTim3 = scan.nextLine();
-                    System.out.println("Please enter the [total calories] of recipe: ");
+                    System.out.println("Please enter the >total calories< of recipe: ");
                     colInt2 = scan.nextInt();
                     scan.nextLine();
-                    System.out.println("Please enter the [classificationID] (1 is Breakfast, 2 is Lunch, 3 is Dinner, 4 is Brunch): ");
+					System.out.println("The classificationIDs of Cookbook include: 1 is Breakfast, 2 is Lunch, 3 is Dinner, 4 is Brunch ");
+                    System.out.println("Please enter the >classificationID< as an integer: ");
                     colInt3 = scan.nextInt();
                     scan.nextLine();
-                    ps = conn.prepareStatement("INSERT INTO RECIPE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
-					          ps.setInt(1, colInt4);
+                    ps = conn.prepareStatement("INSERT INTO RECIPE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+					ps.setInt(1, colInt4);
                     ps.setString(2, colStr1);
                     ps.setString(3, colStr2);
                     ps.setString(4, colStr3);
@@ -260,21 +264,30 @@ public class RecipePages {
                     ps.setInt(9, colInt2);
                     ps.setInt(10, colInt3);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Successful.");
+                        System.out.println("Success! The recipe " + colStr1 + " has been added to the RECIPE table with the id of " 
+                        		+ colInt4 + ".\n The category of " + colStr2 
+                        		+ ", the description of " + colStr3 
+                        		+ ",\n and the servings count of " + colInt1 
+                        		+ ". The time needed to make the recipe is " + colTim1 
+                        		+ ".\n The time needed to prepare is " + colTim2 
+                        		+ ", and the time needed to cook is " + colTim3 
+                        		+ ".\n The total calories is: " + colInt2 
+                        		+ " and the classifcationID is " + colInt3);
                     }
                     ps.close();
                     conn.commit();
                     break;
                 case 2:// ingredients table
-                    System.out.println("INSERT INTO INGREDIENTS VALUES (ingredientsName, foodGroup, unitOfMeasure, caloricContent)");
+                    System.out.println("INSERT INTO `INGREDIENTS` VALUES (ingredientsName, foodGroup, unitOfMeasure, caloricContent)");
                     scan.nextLine();
-                    System.out.println("Please enter the [name] of ingredient: ");
+                    System.out.println("Please enter the >ingredientName< of ingredient: ");
                     colStr1 = scan.nextLine();
-                    System.out.println("Please enter the [foodGroup] of the ingredient(ex. Vegetable): ");
+					System.out.println("Examples of food groups include: Dairy, Oil, Grain, Protein, or Vegetable ");
+                    System.out.println("Please enter the >foodGroup< of the ingredient: ");
                     colStr2 = scan.nextLine();
-                    System.out.println("Please enter the [unit of measurement] of the ingredient that is to be used(ex. Grams): ");
+                    System.out.println("Please enter the >unit of measurement< of the ingredient that is to be used (ex. Grams): ");
                     colStr3 = scan.nextLine();
-                    System.out.println("Please enter the amount of [calories] in the ingredient per 1 serving: ");
+                    System.out.println("Please enter the amount of >calories< in the ingredient per 1 serving: ");
                     colInt1 = scan.nextInt();
                     scan.nextLine();
                     ps = conn.prepareStatement("INSERT INTO INGREDIENTS VALUES (?, ?, ?, ?);");
@@ -283,23 +296,39 @@ public class RecipePages {
                     ps.setString(3, colStr3);
                     ps.setInt(4, colInt1);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Successful.");
+                        System.out.println("Success! The ingredient " + colStr1 + " has been added to the INGREDIENTS table\n" 
+                    + "with the foodGroup of " + colStr2 + ", the unit of measurement of " + colStr3 + ", and " + colInt1 + " calories.");
                     }
                     ps.close();
                     conn.commit();
                     break;
                 case 3:// instructions table
-                    System.out.println("INSERT INTO INSTRUCTIONS VALUES (recipeID, instructionID, step, text2)");
-                    System.out.println("Please enter the [recipeID] of the recipe you are creating instructions for: ");
+                    System.out.println("INSERT INTO `INSTRUCTIONS` VALUES (recipeID, instructionID, step, text2)");
+					System.out.println("recipeID: 1 has 5 instructions.");
+					System.out.println("recipeID: 2 has 4 instructions.");
+					System.out.println("recipeID: 3 has 4 instructions.");
+					System.out.println("recipeID: 4 has 4 instructions.");
+					System.out.println("recipeID: 5 has 5 instructions.");
+                    System.out.println("Please enter the >recipeID< of the recipe you are creating instructions for: ");
                     colInt1 = scan.nextInt();
                     scan.nextLine();
-                    System.out.println("Please enter the [instructionID] number(greater than 24): ");
+					System.out.println("recipeID: 1 has 5 instructions.");
+					System.out.println("recipeID: 2 has 4 instructions.");
+					System.out.println("recipeID: 3 has 4 instructions.");
+					System.out.println("recipeID: 4 has 4 instructions.");
+					System.out.println("recipeID: 5 has 5 instructions.");
+                    System.out.println("Please enter the >instructionID< number (greater than 24): ");
                     colInt2 = scan.nextInt();
                     scan.nextLine();
-					          System.out.println("Please enter a [step] number for this recipe: ");
+					System.out.println("recipeID: 1 has 5 instructions.");
+					System.out.println("recipeID: 2 has 4 instructions.");
+					System.out.println("recipeID: 3 has 4 instructions.");
+					System.out.println("recipeID: 4 has 4 instructions.");
+					System.out.println("recipeID: 5 has 5 instructions.");
+					System.out.println("Please enter a >step< number for this recipe: ");
                     colInt3 = scan.nextInt();
                     scan.nextLine();
-                    System.out.println("Please enter a [text] description: ");
+                    System.out.println("Please enter a >text< description: ");
                     colStr1 = scan.nextLine();
                     ps = conn.prepareStatement("INSERT INTO INSTRUCTIONS VALUES (?, ?, ?, ?)");
                     ps.setInt(1, colInt1);
@@ -307,7 +336,8 @@ public class RecipePages {
                     ps.setInt(3, colInt3);
                     ps.setString(4, colStr1);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Successful.");
+                        System.out.println("Success! Step number " + colInt3 + " has been added to the recipeID of " + colInt1 
+                        		+ "\n with the instructionID of " + colInt2 + " and the description of:\n" + colStr1);
                     }
                     ps.close();
                     conn.commit();
@@ -349,7 +379,7 @@ public class RecipePages {
 					System.out.println("Test recipeIDs include: 1. Omelette, 2. Roast Broccoli, 3. Avacado on Toast, "
 					+ "4. Ham and Cheese Sandwich, and 5. Pan Seared Salmon\n");
                 	System.out.println("DELETE FROM RECIPE WHERE recipeID = ?;");
-                    System.out.println("Please enter recipeID number: ");
+                    System.out.println("Please enter >recipeID< number: ");
                     colInt1 = scan.nextInt();
                     ps = conn.prepareStatement("DELETE FROM RECIPE WHERE RECIPE.recipeID = ?");
                     ps.setInt(1, colInt1);
@@ -363,7 +393,7 @@ public class RecipePages {
 				    System.out.println("Ingredients can be: egg, chives, butter, broccoli, olive oil, bread, avocado, "
 					+ "cheese, ham or salmon.\n");
                     System.out.println("DELETE FROM INGREDIENTS WHERE ingredientsName = ?;");
-                    System.out.println("Please enter ingredientsName: ");
+                    System.out.println("Please enter >ingredientsName<: ");
                     colStr1 = scan.next();
                     ps = conn.prepareStatement("DELETE FROM INGREDIENTS WHERE INGREDIENTS.ingredientsName = ?");
 					ps.setString(1, colStr1);
@@ -376,7 +406,7 @@ public class RecipePages {
                 case 3:// delete suggestion
 					System.out.println("Test suggestionIDs include: 1, 2, 3, 4, 5\n");
                     System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?;");
-                    System.out.println("Please enter suggestionID: ");
+                    System.out.println("Please enter >suggestionID<: ");
                     colStr1 = scan.next();
                     ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE suggestionID = ?");
                     ps.setString(1, colStr1);
@@ -388,16 +418,15 @@ public class RecipePages {
                     break;
                 case 4:// delete instruction
                     System.out.println("DELETE INSTRUCTIONS FROM INSTRUCTIONS WHERE instructionID = ?");
-                    System.out.println("Please enter instructionID: ");
+                    System.out.println("Please enter >instructionID<: ");
                     colInt1 = scan.nextInt();
                     System.out.println("INNER JOIN recipe ON (recipe.recipeID = instructions.recipeID) WHERE recipe.recipeID = ?");
-                    System.out.println("Please enter recipeID: ");
+                    System.out.println("Please enter >recipeID<: ");
                     colInt2 = scan.nextInt();
                     ps = conn.prepareStatement("DELETE instructions FROM instructions INNER JOIN recipe ON (recipe.recipeID = instructions.recipeID) WHERE recipe.recipeID = ? AND instructions.instructionID = ?;");
                     ps.setInt(1, colInt1);
                     ps.setInt(2, colInt2);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Success!");
                     }
                     ps.close();
                     conn.commit();
