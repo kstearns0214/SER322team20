@@ -12,7 +12,7 @@ import java.sql.Time;
 /**
  * This project is the implementation of recipe database in which a
  * user uses the program "Cookbook" to view, add, edit and delete
- * recipes, ingredients and instructions, and suggestions.
+ * recipes, ingredients and instructions.
  *
  * SER 322
  * Team 20
@@ -351,7 +351,7 @@ public class RecipePages {
 
     /**
 	 * The DELETE statements allow the user to delete a recipe, delete an
-	 * ingredient, delete a suggestion, delete an instruction from a
+	 * ingredient, delete an instruction from a
 	 * recipe, and delete a user.
 	 *
      * @param scan
@@ -364,13 +364,13 @@ public class RecipePages {
 
         do {
             System.out.println("Select a table to DELETE a tuple from: ");
-            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. SUGGESTION, 4. INSTRUCTIONS");
+            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. INSTRUCTIONS");
             while (!scan.hasNextInt()) {
                 System.out.println("Error!");
                 scan.next();
             }
             integer = scan.nextInt();
-        } while (integer < 1 || integer > 4);
+        } while (integer < 1 || integer > 3);
         //System.out.println("Success!" + "\n");
         try {
             stmt = conn.createStatement();
@@ -403,20 +403,7 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-                case 3:// delete suggestion
-					System.out.println("Test suggestionIDs include: 1, 2, 3, 4, 5\n");
-                    System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?;");
-                    System.out.println("Please enter >suggestionID<: ");
-                    colStr1 = scan.next();
-                    ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE suggestionID = ?");
-                    ps.setString(1, colStr1);
-                    if (ps.executeUpdate() > 0) {
-                        System.out.println("Success! " + colStr1 + " has been deleted from the SUGGESTION table.");
-                    }
-                    ps.close();
-                    conn.commit();
-                    break;
-                case 4:// delete instruction
+                case 3:// delete instruction
                     System.out.println("DELETE INSTRUCTIONS FROM INSTRUCTIONS WHERE instructionID = ?");
                     System.out.println("Please enter >instructionID<: ");
                     colInt1 = scan.nextInt();
