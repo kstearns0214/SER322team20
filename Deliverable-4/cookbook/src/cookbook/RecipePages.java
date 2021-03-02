@@ -10,10 +10,10 @@ import java.util.Scanner;
 import java.sql.Time;
 
 /**
- * This project is the implementation of recipe database in which a 
- * user uses the program "Cookbook" to view, add, edit and delete 
+ * This project is the implementation of recipe database in which a
+ * user uses the program "Cookbook" to view, add, edit and delete
  * recipes, ingredients and instructions, and suggestions.
- * 
+ *
  * SER 322
  * Team 20
  * Project Deliverable 4
@@ -28,27 +28,27 @@ public class RecipePages {
     private static Statement stmt = null;
     private static Connection conn = null;
     private static PreparedStatement ps = null;
-	
+
     /**
 	 * The SELECT statements allow users to select all recipes,
 	 * all recipes with a filter of a category (breakfast, lunch
-	 * or dinner), select all ingredients, select some ingredients 
+	 * or dinner), select all ingredients, select some ingredients
 	 * (based on food group), print out a shopping list of
-	 * ingredients based on the name of the recipe, and show the 
+	 * ingredients based on the name of the recipe, and show the
 	 * steps and instructions for the name of a recipe.
-	 * 
+	 *
      * @param scan
      */
     private static void selectQ(Scanner scan) {
 		// select all recipes
         String query1 = "Show all recipes with general details";
-        
+
 		// select all recipes with a filter
 		String query2 = "Show all recipes with a chosen category";
-		
+
 		// select all ingredients
 		String query3 = "Show all ingredients";
-		
+
 		// select some ingredients
         String query4 = "Show all ingredients within in a food group";
         String query5 = "Shopping List for a named recipe";
@@ -148,7 +148,7 @@ public class RecipePages {
                     scan.nextLine();
                     String shopName = scan.nextLine();
                     ps = conn.prepareStatement("SELECT recipe.recipeName AS recipeName, has_ingredients.ingredientsName"
-                        + " AS ingredientsName, amount, unitOfMeasure"	
+                        + " AS ingredientsName, amount, unitOfMeasure"
                         + " FROM has_ingredients"
                         + " INNER JOIN recipe"
                         + " ON recipe.recipeID = has_ingredients.recipeID"
@@ -187,11 +187,11 @@ public class RecipePages {
         }
         getUserInput();
     }
-	
+
     /**
 	 * The INSERT statements allow the user to add a recipe, add an
-	 * ingredient, add a suggestion, and add an instruction to a recipe.
-	 * 
+	 * ingredient, and add  instructions with steps to a recipe.
+	 *
      * @param scan
      */
     private static void insertQ(Scanner scan) {
@@ -205,7 +205,7 @@ public class RecipePages {
         int colInt1;
         int colInt2;
         int colInt3;
-		int colInt4;
+		    int colInt4;
         String colServings;
 
         do {
@@ -216,36 +216,40 @@ public class RecipePages {
                 scan.next();
             }
             integer = scan.nextInt();
-        } while (integer < 1 || integer > 9);
+        } while (integer < 1 || integer > 4);
 
         System.out.println("Good!" + "\n");
         try {
             stmt = conn.createStatement();
             switch (integer) {
                 case 1:// recipe table
-                    System.out.println("INSERT INTO RECIPE VALUES (recipeid, recipeName, category, description, servings, totalTime, prepTime, cookTime, totalCalories, classificationID)");
-					System.out.println("Please enter the [recipeid] of recipe: ");
+                    System.out.println("INSERT INTO RECIPE VALUES (recipeID, recipeName, category, description, servings, totalTime, prepTime, cookTime, totalCalories, classificationID)");
+					          System.out.println("Please enter the [recipeid] of recipe(Greater than 5): ");
                     colInt4 = scan.nextInt();
+                    scan.nextLine();
                     System.out.println("Please enter the [recipeName] of recipe: ");
-                    colStr1 = scan.next();
-                    System.out.println("Please enter the [category] of the recipe: ");
-                    colStr2 = scan.next();
+                    colStr1 = scan.nextLine();
+                    System.out.println("Please enter the [category] of the recipe(Breakfast, Brunch, Lunch, Dinner): ");
+                    colStr2 = scan.nextLine();
                     System.out.println("Please enter a brief [description]: ");
-                    colStr3 = scan.next();
+                    colStr3 = scan.nextLine();
                     System.out.println("Please enter the [servings] count: ");
                     colInt1 = scan.nextInt();
-                    System.out.println("Please enter the [preparation time] needed to make the recipe: ");
-                    colTim1 = scan.next();
-                    System.out.println("Please enter the [total time] needed to make the recipe: ");
-                    colTim2 = scan.next();
-                    System.out.println("Please enter the [cook time] needed to make the recipe: ");
-                    colTim3 = scan.next();
-                    System.out.println("Please enter the [total calories]: ");
+                    scan.nextLine();
+                    System.out.println("Please enter the [total time] needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
+                    colTim1 = scan.nextLine();
+                    System.out.println("Please enter the [preparation time] needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
+                    colTim2 = scan.nextLine();
+                    System.out.println("Please enter the [cook time] needed to make the recipe(ex.XX:XX:XX hr:min:sec): ");
+                    colTim3 = scan.nextLine();
+                    System.out.println("Please enter the [total calories] of recipe: ");
                     colInt2 = scan.nextInt();
-                    System.out.println("Please enter the [classificationID]: ");
+                    scan.nextLine();
+                    System.out.println("Please enter the [classificationID] (1 is Breakfast, 2 is Lunch, 3 is Dinner, 4 is Brunch): ");
                     colInt3 = scan.nextInt();
-                    ps = conn.prepareStatement("INSERT INTO RECIPE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-					ps.setInt(1, colInt4);
+                    scan.nextLine();
+                    ps = conn.prepareStatement("INSERT INTO RECIPE VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)");
+					          ps.setInt(1, colInt4);
                     ps.setString(2, colStr1);
                     ps.setString(3, colStr2);
                     ps.setString(4, colStr3);
@@ -262,15 +266,17 @@ public class RecipePages {
                     conn.commit();
                     break;
                 case 2:// ingredients table
-                    System.out.println("INSERT INTO INGREDIENTS VALUES (recipeID, foodGroup, unitOfMeasure, caloricContent)");
-                    System.out.println("Please enter the [recipe identification number]: ");
-                    colStr1 = scan.next();
-                    System.out.println("Please enter the [foodGroup] of the ingredient: ");
-                    colStr2 = scan.next();
-                    System.out.println("Please enter the [unit of measurement] of the ingredient that is to be used: ");
-                    colStr3 = scan.next();
-                    System.out.println("Please enter the amount of [calories] in the ingredient: ");
+                    System.out.println("INSERT INTO INGREDIENTS VALUES (ingredientsName, foodGroup, unitOfMeasure, caloricContent)");
+                    scan.nextLine();
+                    System.out.println("Please enter the [name] of ingredient: ");
+                    colStr1 = scan.nextLine();
+                    System.out.println("Please enter the [foodGroup] of the ingredient(ex. Vegetable): ");
+                    colStr2 = scan.nextLine();
+                    System.out.println("Please enter the [unit of measurement] of the ingredient that is to be used(ex. Grams): ");
+                    colStr3 = scan.nextLine();
+                    System.out.println("Please enter the amount of [calories] in the ingredient per 1 serving: ");
                     colInt1 = scan.nextInt();
+                    scan.nextLine();
                     ps = conn.prepareStatement("INSERT INTO INGREDIENTS VALUES (?, ?, ?, ?);");
                     ps.setString(1, colStr1);
                     ps.setString(2, colStr2);
@@ -283,19 +289,22 @@ public class RecipePages {
                     conn.commit();
                     break;
                 case 3:// instructions table
-                    System.out.println("INSERT INTO INSTRUCTIONS VALUES (recipeID, instructionID, step, text)");
-                    System.out.println("Please enter the [recipe identification number] ");
+                    System.out.println("INSERT INTO INSTRUCTIONS VALUES (recipeID, instructionID, step, text2)");
+                    System.out.println("Please enter the [recipeID] of the recipe you are creating instructions for: ");
                     colInt1 = scan.nextInt();
-                    System.out.println("Please enter the [instructionID] number: ");
+                    scan.nextLine();
+                    System.out.println("Please enter the [instructionID] number(greater than 24): ");
                     colInt2 = scan.nextInt();
-					System.out.println("Please enter a [step] description: ");
+                    scan.nextLine();
+					          System.out.println("Please enter a [step] number for this recipe: ");
                     colInt3 = scan.nextInt();
+                    scan.nextLine();
                     System.out.println("Please enter a [text] description: ");
-                    colStr1 = scan.next();
+                    colStr1 = scan.nextLine();
                     ps = conn.prepareStatement("INSERT INTO INSTRUCTIONS VALUES (?, ?, ?, ?)");
                     ps.setInt(1, colInt1);
-                    ps.setInt(2, colInt1);
-                    ps.setInt(3, colInt1);
+                    ps.setInt(2, colInt2);
+                    ps.setInt(3, colInt3);
                     ps.setString(4, colStr1);
                     if (ps.executeUpdate() > 0) {
                         System.out.println("Successful.");
@@ -309,12 +318,12 @@ public class RecipePages {
         }
         getUserInput();
     }
-	
+
     /**
 	 * The DELETE statements allow the user to delete a recipe, delete an
-	 * ingredient, delete a suggestion, delete an instruction from a 
+	 * ingredient, delete a suggestion, delete an instruction from a
 	 * recipe, and delete a user.
-	 * 
+	 *
      * @param scan
      */
     private static void deleteQ(Scanner scan) {
@@ -322,7 +331,7 @@ public class RecipePages {
         String colStr1;
         int colInt1;
 		int colInt2;
-        
+
         do {
             System.out.println("Select a table to DELETE a tuple from: ");
             System.out.println("1. RECIPE, 2. INGREDIENTS, 3. SUGGESTION, 4. INSTRUCTIONS");
@@ -425,7 +434,7 @@ public class RecipePages {
         }
         getUserInput();
     }
-	
+
     /**
      * Main menu of the app.
      */
@@ -474,7 +483,7 @@ public class RecipePages {
      */
     public static void main(String[] args) {
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
-        System.out.println("The secret ingredient is love,\n but for facts, here's a database full of " 
+        System.out.println("The secret ingredient is love,\n but for facts, here's a database full of "
 		+ "recipes:\n the Cookbook by team 20!");
         System.out.println("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n");
         System.out.print("Attempting to connect to the database.\n");
