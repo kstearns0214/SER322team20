@@ -322,6 +322,7 @@ public class RecipePages {
         int colInt2;
         int eInt1;
         String eString1;
+        String target;
         do {
             System.out.println("Select a table to EDIT: ");
             System.out.println("1. RECIPE, 2. INGREDIENTS, 3. INSTRUCTIONS");
@@ -336,6 +337,7 @@ public class RecipePages {
             stmt = conn.createStatement();
             switch (integer) {
                 case 1:// edit recipe
+                    target = "recipe";
                     System.out.println("Test recipeIDs include: 1. Omelette, 2. Roast Broccoli, 3. Avacado on Toast, "
 					+ "4. Ham and Cheese Sandwich, and 5. Pan Seared Salmon\n");
                     System.out.println("Please enter recipeID number to edit: ");
@@ -351,9 +353,12 @@ public class RecipePages {
                     }
                     else
                     {
-                        eString1 = scan.nextline();
+                        eString1 = scan.nextLine();
                     }
                     ps = conn.prepareStatement("UPDATE ? SET ? = ? WHERE RECIPE.recipeID = ?");
+                    ps.setString(1, target);
+                    ps.setString(2, "");
+                    ps.setInt(4, colInt1);
 
     }
 	
@@ -561,5 +566,13 @@ public class RecipePages {
                 se.printStackTrace();
             }
         }
+    }
+    private static String getCN(int val)
+    {
+        switch(val){
+            case 1:
+            return "recipeName";
+        }
+        return "";
     }
 }
