@@ -1,8 +1,3 @@
-DELETE FROM user 
-WHERE username = 'CharlieFactory';
-
-Select * From user; /* used to check if charlieFactory got deleted*/
-
 
 UPDATE recipe
 SET totalCalories = 500
