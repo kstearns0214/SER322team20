@@ -342,6 +342,12 @@ public class RecipePages {
         getUserInput();
     }
 
+    /**
+	 * The EDIT statements allow the user to edit a recipe, edit an
+	 * ingredient, and edit an instruction from a recipe.
+	 *
+     * @param scan
+     */
     private static void editQ(Scanner scan)
     {
         int integer = 0;
@@ -353,29 +359,28 @@ public class RecipePages {
         
         do {
             System.out.println("Select a table to EDIT: ");
-            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. INSTRUCTIONS");
+            System.out.println("1. RECIPE\n\n2. INGREDIENTS\n\n3. INSTRUCTIONS");
             while (!scan.hasNextInt()) {
                 System.out.println("Error!");
                 scan.next();
             }
             integer = scan.nextInt();
         } while (integer < 1 || integer > 3);
-        //System.out.println("Success!" + "\n");
         try {
             stmt = conn.createStatement();
             switch (integer) {
                 case 1:// edit recipe
                     target = "recipe";
-                    System.out.println("Test recipeIDs include: 1. Omelette, 2. Roast Broccoli, 3. Avacado on Toast, "
+                    System.out.println("Test >recipeIDs< include: 1. Omelette, 2. Roast Broccoli, 3. Avacado on Toast, "
 					+ "4. Ham and Cheese Sandwich, and 5. Pan Seared Salmon\n");
-                    System.out.println("Please enter recipeID number to edit: ");
+                    System.out.println("Please enter >recipeID< number to edit: ");
                     colInt1 = scan.nextInt();
                     System.out.println("Please enter the attribute to be edited: ");
-                    System.out.println("recipeName, totalTime, totalCalories, description");
+                    System.out.println(">recipeName<, >totalTime<, >totalCalories<, or >description<");
                     selAtt = scan.nextLine();
                     selAtt = scan.nextLine();
-                    System.out.println("Please enter the change you wish to make.");
-                    System.out.println("Time should be in HH:MM:SS format.");
+                    System.out.println("Please enter the change you wish to make:");
+                    System.out.println("If you enter time, it should be in HH:MM:SS format.");
                     eString1 = scan.nextLine();
                     ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "=? WHERE RECIPE.recipeID=?");
                     ps.setString(1, eString1);
@@ -387,14 +392,14 @@ public class RecipePages {
                 
                 case 2: 
                     target = "ingredients";
-                    System.out.println("Test ingredients include: Avocado,, Bread, Broccoli, Butter, Cheese, Ham\n");
-                    System.out.println("Please type ingredient name to edit: ");
+                    System.out.println("Test >ingredients< include: Avocado,, Bread, Broccoli, Butter, Cheese, Ham\n");
+                    System.out.println("Please type >ingredient name< to edit: ");
                     colStr1 = scan.nextLine();
                     colStr1 = scan.nextLine();
                     System.out.println("Please type the attribute to be edited: ");
-                    System.out.println("foodGroup, unitOfMeasure, caloricContent");
+                    System.out.println(">foodGroup<, >unitOfMeasure<, or >caloricContent<");
                     selAtt = scan.nextLine();
-                    System.out.println("Please enter the change you wish to make.");
+                    System.out.println("Please enter the change you wish to make:");
                     eString1 = scan.nextLine();
                     ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "=? WHERE ingredients.ingredientsName = ?");
                     ps.setString(1,eString1);
@@ -405,16 +410,16 @@ public class RecipePages {
                     break;
                 case 3: 
                     target = "instructions";
-                    System.out.println("Test instructionIDs include 1-19\n");
-                    System.out.println("Please type instructionID number to edit: ");
+                    System.out.println("Test >instructionID<s include 1-19\n");
+                    System.out.println("Please type >instructionID< number to edit: ");
                     colInt1 = scan.nextInt();
                     System.out.println("Please type the attribute to be edited: ");
-                    System.out.println("recipeID, step, text2");
+                    System.out.println(">recipeID<, >step<, or >text2<");
                     selAtt = scan.nextLine();
                     selAtt = scan.nextLine();
                     System.out.println("Please enter the change you wish to make.");
                     eString1 = scan.nextLine();
-                    ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "=? WHERE instructions.instructionID = ?");
+                    ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "=? WHERE instructions.instructionID = ? ORDER BY step;" );
                     ps.setInt(2,colInt1);
                     ps.setString(1,eString1);
                     ps.executeUpdate();
@@ -431,8 +436,7 @@ public class RecipePages {
 	
     /**
 	 * The DELETE statements allow the user to delete a recipe, delete an
-	 * ingredient, delete an instruction from a
-	 * recipe, and delete a user.
+	 * ingredient, delete an instruction from a recipe.
 	 *
      * @param scan
      */

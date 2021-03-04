@@ -1,6 +1,21 @@
 # ser322_team20_cookbook
 
-This is a Java-based application that uses a cookbook database which provides a simple command line user interface where users can select all recipes, select all recipes of a category, select all ingredients, select all ingredients by food group, print out a shopping list based on recipe selected, print out instructions for a recipe selected, insert a recipe, insert an ingredient, or insert instructions for a recipe, delete a recipe, delete ingredients, or delete instructions.
+This is a Java-based application that uses a cookbook database which provides a simple command line user interface where users can:
+- select all recipes
+- select all recipes of a category
+- select all ingredients
+- select all ingredients by food group
+- print out a shopping list based on the recipe selected
+- print out instructions for a recipe selected
+- insert a recipe
+- insert an ingredient
+- insert instructions for a recipe
+- delete a recipe
+- delete ingredients
+- delete instructions
+- edit an ingredient
+- edit steps in the instructions
+- edit a recipe
 
 The initial design as submitted for deliverables one, two and three, included a table for suggestions and users. These have been deleted based on feedback from Deliverable 3 in which it was suggested we had too many tables. Without suggestions, there is no need for users.
 
