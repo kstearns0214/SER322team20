@@ -176,7 +176,8 @@ public class RecipePages {
                         + " FROM recipe"
                         + " INNER JOIN instructions"
                         + " ON recipe.recipeID = instructions.recipeID"
-                        + " WHERE recipe.recipeName = ?;");
+                        + " WHERE recipe.recipeName = ?"
+                        + " ORDER BY step;");
                     ps.setString(1, insName);
                     rs = ps.executeQuery();
                     System.out.println("Step\tDirections");
