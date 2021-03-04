@@ -387,9 +387,9 @@ public class RecipePages {
                     System.out.println("Please enter the change you wish to make.");
                     System.out.println("Time should be in HH:MM:SS format.");
                     eString1 = scan.nextLine();
-                    ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "="+eString1+" WHERE RECIPE.recipeID=?");
-                    ps.setString(1, selAtt);
-                    ps.setInt(1, colInt1);
+                    ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "=? WHERE RECIPE.recipeID=?");
+                    ps.setString(1, eString1);
+                    ps.setInt(2, colInt1);
                     ps.executeUpdate();
                     ps.close();
                     conn.commit();
@@ -398,17 +398,17 @@ public class RecipePages {
                 case 2: 
                     target = "ingredients";
                     System.out.println("Test ingredients include: Avocado,, Bread, Broccoli, Butter, Cheese, Ham\n");
-                    System.out.println("Please type ingredient name number to edit: ");
+                    System.out.println("Please type ingredient name to edit: ");
                     colStr1 = scan.nextLine();
                     colStr1 = scan.nextLine();
                     System.out.println("Please type the attribute to be edited: ");
                     System.out.println("foodGroup, unitOfMeasure, caloricContent");
                     selAtt = scan.nextLine();
                     System.out.println("Please enter the change you wish to make.");
-                    System.out.println("Time should be in HH:MM:SS format.");
                     eString1 = scan.nextLine();
-                    ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "="+eString1+" WHERE ingredients.ingredientsName = ?");
-                    ps.setString(1,colStr1);
+                    ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "=? WHERE ingredients.ingredientsName = ?");
+                    ps.setString(1,eString1);
+                    ps.setString(2,colStr1);
                     ps.executeUpdate();
                     ps.close();
                     conn.commit();
@@ -423,7 +423,6 @@ public class RecipePages {
                     selAtt = scan.nextLine();
                     selAtt = scan.nextLine();
                     System.out.println("Please enter the change you wish to make.");
-                    System.out.println("Time should be in HH:MM:SS format.");
                     eString1 = scan.nextLine();
                     ps = conn.prepareStatement("UPDATE " + target + " SET " + selAtt + "=? WHERE instructions.instructionID = ?");
                     ps.setInt(2,colInt1);
