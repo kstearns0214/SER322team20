@@ -52,8 +52,8 @@ public class RecipePages {
 
 		// select some ingredients
         String query4 = "Show all ingredients within in a food group";
-        String query5 = "Shopping List for a named recipe";
-        String query6 = "Steps and Instructions for a named recipe";
+        String query5 = "Create a shopping list for a named recipe";
+        String query6 = "Show the steps and instructions for a named recipe";
 
         int select;
         do {
@@ -210,15 +210,14 @@ public class RecipePages {
 
         do {
             System.out.println("Select a column to insert data into: ");
-            System.out.println("1. Recipe, 2. Ingredients, 3. Instructions");
+            System.out.println("1. Recipe\n\n2. Ingredients\n\n3. Instructions");
             while (!scan.hasNextInt()) {
                 System.out.println("Bad!");
                 scan.next();
             }
             integer = scan.nextInt();
         } while (integer < 1 || integer > 4);
-
-        System.out.println("Good!" + "\n");
+		
         try {
             stmt = conn.createStatement();
             switch (integer) {
@@ -265,14 +264,14 @@ public class RecipePages {
                     ps.setInt(10, colInt3);
                     if (ps.executeUpdate() > 0) {
                         System.out.println("Success! The recipe " + colStr1 + " has been added to the RECIPE table with the id of " 
-                        		+ colInt4 + ".\n The category of " + colStr2 
+                        		+ colInt4 + ",\n the category of " + colStr2 
                         		+ ", the description of " + colStr3 
                         		+ ",\n and the servings count of " + colInt1 
                         		+ ". The time needed to make the recipe is " + colTim1 
                         		+ ".\n The time needed to prepare is " + colTim2 
                         		+ ", and the time needed to cook is " + colTim3 
                         		+ ".\n The total calories is: " + colInt2 
-                        		+ " and the classifcationID is " + colInt3);
+                        		+ " and the classifcationID is " + colInt3 + ".");
                     }
                     ps.close();
                     conn.commit();
@@ -285,7 +284,7 @@ public class RecipePages {
 					System.out.println("Examples of food groups include: Dairy, Oil, Grain, Protein, or Vegetable ");
                     System.out.println("Please enter the >foodGroup< of the ingredient: ");
                     colStr2 = scan.nextLine();
-                    System.out.println("Please enter the >unit of measurement< of the ingredient that is to be used (ex. Grams): ");
+                    System.out.println("Please enter the >unit of measure< of the ingredient that is to be used (ex. Grams): ");
                     colStr3 = scan.nextLine();
                     System.out.println("Please enter the amount of >calories< in the ingredient per 1 serving: ");
                     colInt1 = scan.nextInt();
@@ -312,19 +311,9 @@ public class RecipePages {
                     System.out.println("Please enter the >recipeID< of the recipe you are creating instructions for: ");
                     colInt1 = scan.nextInt();
                     scan.nextLine();
-					System.out.println("recipeID: 1 has 5 instructions.");
-					System.out.println("recipeID: 2 has 4 instructions.");
-					System.out.println("recipeID: 3 has 4 instructions.");
-					System.out.println("recipeID: 4 has 4 instructions.");
-					System.out.println("recipeID: 5 has 5 instructions.");
                     System.out.println("Please enter the >instructionID< number (greater than 24): ");
                     colInt2 = scan.nextInt();
                     scan.nextLine();
-					System.out.println("recipeID: 1 has 5 instructions.");
-					System.out.println("recipeID: 2 has 4 instructions.");
-					System.out.println("recipeID: 3 has 4 instructions.");
-					System.out.println("recipeID: 4 has 4 instructions.");
-					System.out.println("recipeID: 5 has 5 instructions.");
 					System.out.println("Please enter a >step< number for this recipe: ");
                     colInt3 = scan.nextInt();
                     scan.nextLine();
@@ -336,7 +325,7 @@ public class RecipePages {
                     ps.setInt(3, colInt3);
                     ps.setString(4, colStr1);
                     if (ps.executeUpdate() > 0) {
-                        System.out.println("Success! Step number " + colInt3 + " has been added to the recipeID of " + colInt1 
+                        System.out.println("Success! Step number " + colInt3 + " has been added to recipeID " + colInt1 
                         		+ "\n with the instructionID of " + colInt2 + " and the description of:\n" + colStr1);
                     }
                     ps.close();
@@ -364,7 +353,7 @@ public class RecipePages {
 
         do {
             System.out.println("Select a table to DELETE a tuple from: ");
-            System.out.println("1. RECIPE, 2. INGREDIENTS, 3. INSTRUCTIONS");
+            System.out.println("1. RECIPE\n\n2. INGREDIENTS\n\n3. INSTRUCTIONS");
             while (!scan.hasNextInt()) {
                 System.out.println("Error!");
                 scan.next();
@@ -418,32 +407,6 @@ public class RecipePages {
                     ps.close();
                     conn.commit();
                     break;
-				// case 5:// delete username
-					// System.out.println("Test userIDs include: 1, 2, 3, 4, 5, 6, 7, and 8.");
-                	// System.out.println("DELETE FROM USER WHERE userID = ?");
-                    // System.out.println("Please enter userID: ");
-                    // colInt1 = scan.nextInt();
-                    // ps = conn.prepareStatement("DELETE FROM USER WHERE USER.userID = ?");
-                    // ps.setInt(1, colInt1);
-                    // if (ps.executeUpdate() > 0) {
-                        // System.out.println("Success!");
-                    // }
-                    // ps.close();
-                    // conn.commit();
-                    // break;
-				// case 6:// delete suggestion
-					// System.out.println("Test userIDs include: 1, 2, 3, 4, and 5.");
-                	// System.out.println("DELETE FROM SUGGESTION WHERE suggestionID = ?");
-                    // System.out.println("Please enter suggestionID: ");
-                    // colInt1 = scan.nextInt();
-                    // ps = conn.prepareStatement("DELETE FROM SUGGESTION WHERE SUGGESTION.suggestionID = ?");
-                    // ps.setInt(1, colInt1);
-                    // if (ps.executeUpdate() > 0) {
-                        // System.out.println("Success!");
-                    // }
-                    // ps.close();
-                    // conn.commit();
-                    // break;
             }
         } catch (Exception e) {
             e.printStackTrace();
