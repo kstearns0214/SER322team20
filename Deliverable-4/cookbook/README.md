@@ -1,4 +1,6 @@
 # ser322_team20_cookbook
+- Demo video: https://drive.google.com/drive/folders/1ofiLmR9KINhBIgp5YpcjoQIPr-TZwFD3?usp=sharing
+- Unlisted YouTube link to video: https://www.youtube.com/watch?v=-MXlda-S8CM
 
 This is a Java-based application that uses a cookbook database which provides a simple command line user interface where users can:
 - select all recipes
