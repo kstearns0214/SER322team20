@@ -191,7 +191,7 @@ public class RecipePages {
 
     /**
 	 * The INSERT statements allow the user to add a recipe, add an
-	 * ingredient, and add  instructions with steps to a recipe.
+	 * ingredient, and add instructions with steps to a recipe.
 	 *
      * @param scan
      */
