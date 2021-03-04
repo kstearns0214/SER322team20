@@ -564,7 +564,7 @@ public class RecipePages {
                     insertQ(scan);
                 } else if (in.equals("3") || in.equalsIgnoreCase("Delete")) {
                     deleteQ(scan);
-                } else if (in.equals("4") || in.equalsIgnoreCase("Delete")) {
+                } else if (in.equals("4") || in.equalsIgnoreCase("Update")) {
                     editQ(scan);
                 } else if (in.equalsIgnoreCase("Q") || in.equalsIgnoreCase("Exit")) {
                     exitProgram(scan);
